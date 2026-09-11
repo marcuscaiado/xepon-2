@@ -55,4 +55,4 @@ This repository (**`xepon-2`**) is a complete redesign crafted specifically for 
 
 ## 💿 License & Credits
 
-© 2025–2026 ✧XE・PON♡✧ — All Rights Reserved ♡
+© 2026 ✧XE・PON♡✧ — All Rights Reserved ♡

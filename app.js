@@ -57,8 +57,8 @@ const I18N = {
     direction_header: "// TRACK OVERVIEW & SOUND PROFILE",
     chorus_tag: "CHORUS HIGHLIGHT // サビ",
     btn_expand_lyrics: "VIEW FULL LYRICS 📜",
-    btn_play_onsite: "▶ PLAY",
-    btn_pause_onsite: "⏸ PAUSE",
+    btn_play_onsite: "PLAY",
+    btn_pause_onsite: "PAUSE",
     btn_prev_track: "◀ PREV",
     btn_next_track: "NEXT ▶",
     btn_stream_phase: "PHASEIA ↗",
@@ -157,8 +157,8 @@ const I18N = {
     direction_header: "// 楽曲解説 & サウンドプロファイル",
     chorus_tag: "サビ抜粋 // サビ",
     btn_expand_lyrics: "フル歌詞を見る 📜",
-    btn_play_onsite: "▶ 再生",
-    btn_pause_onsite: "⏸ 一時停止",
+    btn_play_onsite: "再生",
+    btn_pause_onsite: "一時停止",
     btn_prev_track: "◀ 前の曲",
     btn_next_track: "次の曲 ▶",
     btn_stream_phase: "PHASEIA ↗",
@@ -2096,10 +2096,29 @@ function initScrollReveal() {
 
 /**
  * ==========================================================================
+ * 12. DYNAMIC AUTO-UPDATING COPYRIGHT RULE
+ * ==========================================================================
+ * Automatically calculates and binds the current year dynamically
+ * so the website copyright footer never stays on an outdated year.
+ */
+function initCopyrightYear() {
+  const currentYear = new Date().getFullYear();
+  const copyEl = document.getElementById('copyright-year');
+  if (copyEl) {
+    copyEl.textContent = currentYear;
+  }
+  document.querySelectorAll('.auto-copyright-year').forEach(el => {
+    el.textContent = currentYear;
+  });
+}
+
+/**
+ * ==========================================================================
  * INITIALIZATION ON DOM READY
  * ==========================================================================
  */
 document.addEventListener('DOMContentLoaded', () => {
+  initCopyrightYear();
   initAudioEngine();
   initTrackShowcase();
   initPlaylist();
