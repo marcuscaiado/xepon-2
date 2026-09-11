@@ -1116,6 +1116,55 @@ function initAudioEngine() {
     });
   }
 
+  // Volume controls (slider & mute toggle)
+  const volSlider = document.getElementById('vol-slider');
+  const volBtn = document.getElementById('vol-btn');
+
+  // Set default initial volume to 0.8
+  audioEl.volume = 0.8;
+  if (volSlider) volSlider.value = 0.8;
+
+  function updateVolIcon(vol) {
+    if (!volBtn) return;
+    if (vol === 0) {
+      volBtn.textContent = '🔇';
+      volBtn.setAttribute('title', 'Unmute');
+      volBtn.setAttribute('aria-label', 'Unmute');
+    } else if (vol < 0.5) {
+      volBtn.textContent = '🔉';
+      volBtn.setAttribute('title', 'Mute');
+      volBtn.setAttribute('aria-label', 'Mute');
+    } else {
+      volBtn.textContent = '🔊';
+      volBtn.setAttribute('title', 'Mute');
+      volBtn.setAttribute('aria-label', 'Mute');
+    }
+  }
+
+  if (volSlider) {
+    volSlider.addEventListener('input', (e) => {
+      const v = parseFloat(e.target.value);
+      audioEl.volume = v;
+      updateVolIcon(v);
+    });
+  }
+
+  if (volBtn) {
+    volBtn.addEventListener('click', () => {
+      if (audioEl.volume > 0) {
+        audioEl.dataset.prevVol = audioEl.volume;
+        audioEl.volume = 0;
+        if (volSlider) volSlider.value = 0;
+        updateVolIcon(0);
+      } else {
+        const prev = parseFloat(audioEl.dataset.prevVol || '0.8');
+        audioEl.volume = prev;
+        if (volSlider) volSlider.value = prev;
+        updateVolIcon(prev);
+      }
+    });
+  }
+
   updatePlayerInfo();
 }
 

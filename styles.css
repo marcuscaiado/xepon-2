@@ -2072,7 +2072,7 @@ img {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(92%, 680px);
+  width: min(94%, 780px);
   background: var(--black-card);
   border: 1.5px solid var(--border-dark);
   border-radius: var(--radius-xl);
@@ -2190,6 +2190,46 @@ img {
 
 .time-sep {
   opacity: 0.4;
+}
+
+.player-vol-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vol-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-light-dim);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 4px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.vol-btn:hover {
+  color: var(--pink);
+  transform: scale(1.15);
+}
+
+.vol-slider {
+  width: 68px;
+  height: 4px;
+  accent-color: var(--pink);
+  cursor: pointer;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  transition: opacity 0.2s ease;
+}
+
+.vol-slider:hover {
+  opacity: 1;
 }
 
 .player-lyrics-btn {
@@ -2485,6 +2525,10 @@ img {
   }
 
   .player-time {
+    display: none;
+  }
+
+  .vol-slider {
     display: none;
   }
 
