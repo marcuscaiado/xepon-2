@@ -1,7 +1,7 @@
 /**
  * ==========================================================================
  * ✧XE・PON♡✧ // JP MARKET REDESIGN — Y2K × IDOL × ANIME BAND
- * Full Vanilla JS: Bilingual i18n, Audio Engine, Sparkle Canvas, Interactions
+ * Full Vanilla JS: Bilingual i18n, Audio Engine, Sparkle Canvas, Picture Viewer, Interactions
  * ==========================================================================
  */
 
@@ -10,12 +10,14 @@ let currentLang = 'en';
 let currentTrackIdx = 4; // Start with featured climax single: BREAK THE LIMIT#2
 let currentShowcaseIdx = 0;
 let currentModalTrackIdx = 4;
+let currentPicIdx = 0;
 let audioEl = null;
 let isPlaying = false;
 
 /**
  * ==========================================================================
  * 1. BILINGUAL TRANSLATION DICTIONARY (EN & JA)
+ * Rebranded with Phaseia
  * ==========================================================================
  */
 const I18N = {
@@ -26,23 +28,23 @@ const I18N = {
     nav_showcase: "TRACKS",
     nav_playlist: "PLAYLIST",
     nav_toei: "TOEI",
-    nav_artist_phase: "PHASE",
+    nav_artist_phase: "PHASEIA",
     status_ready: "READY TO PLAY",
     status_playing: "PLAYING NOW ⚡",
     status_paused: "PAUSED",
     badge_new_release: "✧ NEW SINGLE",
     badge_bpm_energy: "♡ PUNK ENERGY 100%",
-    badge_phase_tracks: "16 SONGS ON PHASE",
+    badge_phase_tracks: "16 SONGS ON PHASEIA",
     badge_5_tracks: "5 FULL TRACKS",
     hero_title_top: "JAPANESE POST-HARDCORE & PUNK",
     hero_kanji_sub: 'BREAK THE LIMIT#2 「叫べ！夜を切り裂いて光を掴め！」',
-    hero_desc: 'Wall-of-sound production driven by high-gain guitars, high-velocity dynamic skank drumming, furious double-kick pedals, and raw female rock chest vocals. Stream the 5 featured tracks from <em>NEON & FRICTION</em> directly on site, or explore ✧XE・PON♡✧\'s full 16-song catalogue on <strong>Phase</strong>.',
+    hero_desc: 'Wall-of-sound production driven by high-gain guitars, high-velocity dynamic skank drumming, furious double-kick pedals, and raw female rock chest vocals. Stream the 5 featured tracks from <em>NEON & FRICTION</em> directly on site, or explore ✧XE・PON♡✧\'s full 16-song catalogue on <strong>Phaseia</strong>.',
     btn_play_single: "PLAY NEW SINGLE",
     btn_view_playlist: "VIEW ALL 5 TRACKS",
     btn_lyrics_notes: "LYRICS & NOTES",
     btn_sub_production: "PRODUCTION SPECS (ALL 5 SONGS)",
     stat_members: "MEMBERS",
-    stat_phase_songs: "ON PHASE",
+    stat_phase_songs: "ON PHASEIA",
     stat_tracks: "ON SITE",
     stat_toei: "TOEI CALLS",
     hero_tag_top: "✧XE・PON♡✧ // ALL 4 MEMBERS",
@@ -58,16 +60,16 @@ const I18N = {
     btn_pause_onsite: "⏸ PAUSE",
     btn_prev_track: "◀ PREV",
     btn_next_track: "NEXT ▶",
-    btn_stream_phase: "PHASE ↗",
+    btn_stream_phase: "PHASEIA ↗",
     btn_sub_open_app: "OPEN IN OFFICIAL APP ↗",
     sec2_badge: "OFFICIAL PLAYLIST",
     sec2_kanji: "PLAYLIST ♡",
-    sec2_sub: "Play any of the 5 original songs directly in the site's integrated player or launch on Phase.",
+    sec2_sub: "Play any of the 5 original songs directly in the site's integrated player or launch on Phaseia.",
     badge_5_songs: "5 TRACKS",
     playlist_sub_tag: "IN-SITE AUDIO READY",
     playlist_meta_info: "Artist: ✧XE・PON♡✧ • 5 Tracks • Japanese Alt Rock / Post-Hardcore",
     btn_play_all: "PLAY ALL",
-    btn_open_phase: "OPEN IN PHASE ↗",
+    btn_open_phase: "OPEN IN PHASEIA ↗",
     th_track: "TRACK & TITLE",
     th_genre: "GENRE",
     th_duration: "TIME",
@@ -78,6 +80,7 @@ const I18N = {
     sec3_badge: "TOEI TRANSMISSION",
     sec3_kanji: "TOEI ANIMATION",
     sec3_sub: "When your tracks sound so much like an anime opening that major studios won't stop ringing.",
+    toei_photo_tag: "TOEI ANIMATION HQ // 108+ MISSED CALLS",
     toei_terminal_title: "COMMS_LOG // TOEI_ANIMATION",
     toei_alert_badge: "100+ MISSED CALLS",
     toei_log_status: "INCOMING CALL OVERFLOW // DO NOT DISTURB ON",
@@ -91,11 +94,11 @@ const I18N = {
     toei_sender_3: "SHIBUYA LIVEHOUSE // FRONT DESK",
     toei_time_3: "4:21 AM (CALL #102)",
     toei_msg_3: '"Uhh girls... there\'s a guy in a tailored suit with a Toei Animation VIP badge literally pacing outside the back door waiting for your rehearsal to finish. Did you guys rob an anime studio or what? 💀"',
-    btn_follow_phase: "FOLLOW ✧XE・PON♡✧ ON PHASE (16 SONGS)",
-    disco_badge: "⚡ COMPLETE DISCOGRAPHY // PHASE",
-    disco_title: "ALL 16 SONGS STREAMING ON PHASE",
-    disco_desc: 'Beyond the 5 featured tracks on <em>NEON & FRICTION</em>, stream ✧XE・PON♡✧\'s full 16-song catalogue of Japanese post-hardcore, alternative rock, and melodic punk directly on the official Phase platform.',
-    btn_explore_16: "STREAM ALL 16 SONGS ON PHASE",
+    btn_follow_phase: "FOLLOW ✧XE・PON♡✧ ON PHASEIA (16 SONGS)",
+    disco_badge: "⚡ COMPLETE DISCOGRAPHY // PHASEIA",
+    disco_title: "ALL 16 SONGS STREAMING ON PHASEIA",
+    disco_desc: 'Beyond the 5 featured tracks on <em>NEON & FRICTION</em>, stream ✧XE・PON♡✧\'s full 16-song catalogue of Japanese post-hardcore, alternative rock, and melodic punk directly on the official Phaseia platform.',
+    btn_explore_16: "STREAM ALL 16 SONGS ON PHASEIA",
     cap_akiba: "AKIHABARA GIGO ✧",
     cap_street: "SHIBUYA BACK-ALLEY ♡",
     cap_chrome: "SESSIONS ☆",
@@ -105,7 +108,10 @@ const I18N = {
     modal_btn_close: "CLOSE",
     dock_meta_default: "READY TO PLAY ♡",
     dock_meta_playing: "NOW PLAYING ⚡",
-    dock_btn_phase: "PHASE ↗"
+    dock_btn_phase: "PHASEIA ↗",
+    tip_open_miniature: "OPEN IN MINIATURE",
+    tip_minimize: "MINIATURE",
+    btn_minimize_pip: "OPEN MINIATURE"
   },
   ja: {
     page_title: "✧XE・PON♡✧ // 公式ポータル | BREAK THE LIMIT#2",
@@ -114,23 +120,23 @@ const I18N = {
     nav_showcase: "楽曲紹介",
     nav_playlist: "プレイリスト",
     nav_toei: "東映通信",
-    nav_artist_phase: "PHASE",
+    nav_artist_phase: "PHASEIA",
     status_ready: "再生準備完了",
     status_playing: "再生中 ⚡",
     status_paused: "一時停止中",
     badge_new_release: "✧ 新曲公開",
     badge_bpm_energy: "♡ パンクエネルギー100%",
-    badge_phase_tracks: "PHASEで全16曲配信中",
+    badge_phase_tracks: "PHASEIAで全16曲配信中",
     badge_5_tracks: "全5曲完全収録",
     hero_title_top: "超音速ジャパニーズ・ポストハードコア＆パンク",
     hero_kanji_sub: "BREAK THE LIMIT#2 「叫べ！夜を切り裂いて光を掴め！」",
-    hero_desc: "ハイゲインギターが生み出す音の壁、超高速スカンクビート、怒涛のツーバス、そして感情と摩擦に満ちた女性ロックボーカルの生々しい叫び。『NEON & FRICTION』収録の厳選5曲をサイト内で直接試聴、またはPhaseで✧XE・PON♡✧の全16曲カタログをストリーミング。",
+    hero_desc: "ハイゲインギターが生み出す音の壁、超高速スカンクビート、怒涛のツーバス、そして感情と摩擦に満ちた女性ロックボーカルの生々しい叫び。『NEON & FRICTION』収録の厳選5曲をサイト内で直接試聴、またはPhaseiaで✧XE・PON♡✧の全16曲カタログをストリーミング。",
     btn_play_single: "新曲を再生",
     btn_view_playlist: "全5曲を見る",
     btn_lyrics_notes: "歌詞 & ノート",
     btn_sub_production: "全5曲 制作ディレクション",
     stat_members: "メンバー",
-    stat_phase_songs: "PHASE配信",
+    stat_phase_songs: "PHASEIA配信",
     stat_tracks: "サイト再生",
     stat_toei: "東映着信",
     hero_tag_top: "✧XE・PON♡✧ // メンバー4名",
@@ -146,16 +152,16 @@ const I18N = {
     btn_pause_onsite: "⏸ 一時停止",
     btn_prev_track: "◀ 前の曲",
     btn_next_track: "次の曲 ▶",
-    btn_stream_phase: "PHASE ↗",
+    btn_stream_phase: "PHASEIA ↗",
     btn_sub_open_app: "公式アプリを開く ↗",
     sec2_badge: "公式プレイリスト",
     sec2_kanji: "プレイリスト ♡",
-    sec2_sub: "内蔵プレイヤーで5曲すべてを直接再生、またはPhaseでフル再生。",
+    sec2_sub: "内蔵プレイヤーで5曲すべてを直接再生、またはPhaseiaでフル再生。",
     badge_5_songs: "全5曲",
     playlist_sub_tag: "サイト内再生対応",
     playlist_meta_info: "アーティスト: ✧XE・PON♡✧ • 全5曲 • ジャパニーズ・オルタナティブロック / ポストハードコア",
     btn_play_all: "全曲再生",
-    btn_open_phase: "PHASEで開く ↗",
+    btn_open_phase: "PHASEIAで開く ↗",
     th_track: "トラック & 曲名",
     th_genre: "ジャンル",
     th_duration: "時間",
@@ -166,6 +172,7 @@ const I18N = {
     sec3_badge: "東映通信",
     sec3_kanji: "東映アニメーション",
     sec3_sub: "曲があまりにもアニメOPすぎるため、大手アニメスタジオからの着信が止まらない事態に。",
+    toei_photo_tag: "東映アニメーション本社 // 着信108件以上",
     toei_terminal_title: "通信記録 // 東映アニメーション",
     toei_alert_badge: "着信100件以上",
     toei_log_status: "着信過多 // おやすみモード作動中",
@@ -179,11 +186,11 @@ const I18N = {
     toei_sender_3: "渋谷ライブハウス // 受付スタッフ",
     toei_time_3: "午前4:21 (着信102回目)",
     toei_msg_3: "「おい、お前ら…ライブハウスの裏口に東映アニメーションの腕章つけたスーツの男が張り付いて練習終わるの待ってるんだけど。お前らスタジオで何やらかしたの？💀」",
-    btn_follow_phase: "PHASEで全16曲を聴く ↗",
-    disco_badge: "⚡ 完全ディスコグラフィ // PHASE",
-    disco_title: "PHASEにて全16曲配信中",
-    disco_desc: "『NEON & FRICTION』の5曲にとどまらず、公式Phaseプラットフォームでは✧XE・PON♡✧の全16曲におよぶジャパニーズ・ポストハードコア、オルタナティブロック、メロディックパンクをストリーミング配信中。",
-    btn_explore_16: "PHASEで全16曲を聴く",
+    btn_follow_phase: "PHASEIAで全16曲を聴く ↗",
+    disco_badge: "⚡ 完全ディスコグラフィ // PHASEIA",
+    disco_title: "PHASEIAにて全16曲配信中",
+    disco_desc: "『NEON & FRICTION』の5曲にとどまらず、公式Phaseiaプラットフォームでは✧XE・PON♡✧の全16曲におよぶジャパニーズ・ポストハードコア、オルタナティブロック、メロディックパンクをストリーミング配信中。",
+    btn_explore_16: "PHASEIAで全16曲を聴く",
     cap_akiba: "秋葉原GIGO ✧",
     cap_street: "渋谷の路地裏 ♡",
     cap_chrome: "セッション ☆",
@@ -193,7 +200,10 @@ const I18N = {
     modal_btn_close: "閉じる",
     dock_meta_default: "再生準備完了 ♡",
     dock_meta_playing: "再生中 ⚡",
-    dock_btn_phase: "PHASE ↗"
+    dock_btn_phase: "PHASEIA ↗",
+    tip_open_miniature: "ミニチュアで開く",
+    tip_minimize: "ミニチュア化",
+    btn_minimize_pip: "ミニチュア表示"
   }
 };
 
@@ -367,7 +377,7 @@ const XE_PON_SHOWCASE = [
     title: "BREAK THE LIMIT#2",
     subtitle: { en: "✧XE・PON♡✧ • Track 05 of 05 ★ Climax Single", ja: "✧XE・PON♡✧ • トラック 05 / 05 ★ クライマックスシングル" },
     tag: "★ CLIMAX SINGLE",
-    image: "assets/toei-missed-calls.jpg",
+    image: "assets/toei-missed-calls.png",
     imageAlt: "✧XE・PON♡✧ Break The Limit",
     location: { en: "Ikebukuro & Toei Animation HQ, Tokyo", ja: "東京・池袋＆東映アニメーション本社" },
     genres: [
@@ -386,6 +396,49 @@ const XE_PON_SHOWCASE = [
       ja: "「叫べ！夜を切り裂いて光を掴め！」"
     },
     phaseUrl: "https://app.phase.app.br/?track=a49e18b4-39cf-44f6-8f29-9f5dbebeed17"
+  }
+];
+
+/**
+ * ==========================================================================
+ * 2.2 PHOTO GALLERY DATA (For Lightbox & Miniature)
+ * ==========================================================================
+ */
+const GALLERY_PHOTOS = [
+  {
+    index: 0,
+    src: "assets/arcade-follow.jpg",
+    title: "AKIHABARA GIGO // ROOFTOP RUNNERS",
+    location: "Akihabara GiGO Arcade, Tokyo",
+    caption: "✧XE・PON♡✧ navigating the neon canyons and electric rooftops of Akihabara."
+  },
+  {
+    index: 1,
+    src: "assets/street-eating.png",
+    title: "SHIBUYA STREET CORNER // MIDNIGHT NOODLES",
+    location: "Shibuya Dogenzaka, Tokyo",
+    caption: "Late-night ramen and street food session after exhausting 4-hour live rehearsal."
+  },
+  {
+    index: 2,
+    src: "assets/band-collage.jpg",
+    title: "STUDIO SESSIONS // REHEARSAL BREAK",
+    location: "Shinjuku Underground Studio, Tokyo",
+    caption: "Analog gear, distorted pedals, and post-hardcore friction."
+  },
+  {
+    index: 3,
+    src: "assets/street-food.jpg",
+    title: "SHIMOKITAZAWA LIVEHOUSE // BACKSTAGE",
+    location: "Shimokitazawa Club 251, Tokyo",
+    caption: "Pre-show adrenaline rush before headlining the Tokyo underground circuit."
+  },
+  {
+    index: 4,
+    src: "assets/toei-missed-calls.png",
+    title: "TOEI ANIMATION // 108+ MISSED CALLS",
+    location: "Shibuya Center-Gai & Don Quijote, Tokyo",
+    caption: "The infamous night Toei Animation's producers couldn't reach ✧XE・PON♡✧ during studio rehearsal."
   }
 ];
 
@@ -758,9 +811,13 @@ function renderShowcaseTrack(idx) {
 
   card.innerHTML = `
     <div class="showcase-card-layout">
-      <div class="showcase-card-img">
+      <div class="showcase-card-img" title="Click to view full photo / open miniature" style="cursor:pointer;">
         <img src="${data.image}" alt="${data.imageAlt}" />
         <span class="img-tag">${data.tag}</span>
+        <div class="photo-expand-overlay">
+          <span class="expand-icon">🔍</span>
+          <span class="expand-text">${dict.tip_open_miniature || 'OPEN IN MINIATURE'}</span>
+        </div>
       </div>
       <div class="showcase-card-body">
         <h3 class="showcase-card-title">${data.title}</h3>
@@ -806,6 +863,15 @@ function renderShowcaseTrack(idx) {
   if (lyricsBtn) {
     lyricsBtn.addEventListener('click', () => {
       openLyricsModal(idx);
+    });
+  }
+
+  // Bind showcase image to picture viewer
+  const imgWrap = card.querySelector('.showcase-card-img');
+  if (imgWrap) {
+    imgWrap.addEventListener('click', () => {
+      const mapIdx = [0, 2, 3, 0, 4];
+      openPictureModal(mapIdx[idx] || 0);
     });
   }
 }
@@ -992,7 +1058,157 @@ function renderModalLyrics(idx) {
 
 /**
  * ==========================================================================
- * 8. LANGUAGE SWITCHER (EN / JA)
+ * 8. PICTURE VIEWER & MINIATURE DOCK
+ * ==========================================================================
+ */
+function initPictureViewer() {
+  const modal = document.getElementById('picture-modal');
+  const miniViewer = document.getElementById('picture-mini-viewer');
+  const minimizeBtn = document.getElementById('picture-minimize-btn');
+  const footerMinimizeBtn = document.getElementById('picture-footer-minimize-btn');
+  const closeBtn = document.getElementById('picture-close-btn');
+  const footerClose = document.getElementById('picture-footer-close-btn');
+  const backdrop = document.getElementById('picture-backdrop');
+  const prevBtn = document.getElementById('picture-prev-btn');
+  const nextBtn = document.getElementById('picture-next-btn');
+  const miniExpandBtn = document.getElementById('mini-viewer-expand-btn');
+  const miniCloseBtn = document.getElementById('mini-viewer-close-btn');
+  const miniStage = document.getElementById('mini-viewer-stage');
+
+  if (minimizeBtn) minimizeBtn.addEventListener('click', minimizePictureViewer);
+  if (footerMinimizeBtn) footerMinimizeBtn.addEventListener('click', minimizePictureViewer);
+  if (closeBtn) closeBtn.addEventListener('click', closePictureModal);
+  if (footerClose) footerClose.addEventListener('click', closePictureModal);
+  if (backdrop) backdrop.addEventListener('click', closePictureModal);
+  if (prevBtn) prevBtn.addEventListener('click', prevPicture);
+  if (nextBtn) nextBtn.addEventListener('click', nextPicture);
+  if (miniExpandBtn) miniExpandBtn.addEventListener('click', expandPictureViewer);
+  if (miniCloseBtn) miniCloseBtn.addEventListener('click', closeMiniViewer);
+  if (miniStage) miniStage.addEventListener('click', expandPictureViewer);
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (modal && modal.classList.contains('is-open')) {
+      if (e.key === 'Escape') closePictureModal();
+      else if (e.key === 'ArrowLeft') prevPicture();
+      else if (e.key === 'ArrowRight') nextPicture();
+      else if (e.key.toLowerCase() === 'm') minimizePictureViewer();
+    } else if (miniViewer && miniViewer.classList.contains('is-active')) {
+      if (e.key === 'Escape') closeMiniViewer();
+      else if (e.key.toLowerCase() === 'm') expandPictureViewer();
+    }
+  });
+
+  // Wire up all gallery elements
+  document.querySelectorAll('[data-gallery-idx]').forEach(el => {
+    const idx = parseInt(el.getAttribute('data-gallery-idx') || '0', 10);
+    el.addEventListener('click', (e) => {
+      // Avoid click collision if clicking buttons or links inside
+      if (e.target.closest('a, button')) return;
+      openPictureModal(idx);
+    });
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openPictureModal(idx);
+      }
+    });
+  });
+}
+
+function openPictureModal(idx) {
+  if (idx < 0) idx = GALLERY_PHOTOS.length - 1;
+  if (idx >= GALLERY_PHOTOS.length) idx = 0;
+  currentPicIdx = idx;
+
+  const modal = document.getElementById('picture-modal');
+  const miniViewer = document.getElementById('picture-mini-viewer');
+  if (miniViewer) miniViewer.classList.remove('is-active');
+
+  renderPictureContent(idx);
+
+  if (modal) {
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function renderPictureContent(idx) {
+  const photo = GALLERY_PHOTOS[idx];
+  if (!photo) return;
+
+  const img = document.getElementById('picture-modal-img');
+  const title = document.getElementById('picture-modal-title');
+  const loc = document.getElementById('picture-modal-loc');
+  const caption = document.getElementById('picture-modal-caption');
+  const counter = document.getElementById('picture-counter');
+  const miniImg = document.getElementById('mini-viewer-img');
+  const miniTitle = document.getElementById('mini-viewer-title');
+
+  if (img) {
+    img.src = photo.src;
+    img.alt = photo.title;
+  }
+  if (title) title.textContent = photo.title;
+  if (loc) loc.textContent = photo.location;
+  if (caption) caption.textContent = photo.caption;
+  if (counter) counter.textContent = `PHOTO ${String(idx + 1).padStart(2, '0')} / ${String(GALLERY_PHOTOS.length).padStart(2, '0')}`;
+
+  if (miniImg) miniImg.src = photo.src;
+  if (miniTitle) miniTitle.textContent = `${photo.title} [MINIATURE]`;
+}
+
+function closePictureModal() {
+  const modal = document.getElementById('picture-modal');
+  if (modal) {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+}
+
+function minimizePictureViewer() {
+  closePictureModal();
+  const miniViewer = document.getElementById('picture-mini-viewer');
+  if (miniViewer) {
+    miniViewer.classList.add('is-active');
+    miniViewer.setAttribute('aria-hidden', 'false');
+  }
+}
+
+function expandPictureViewer() {
+  const miniViewer = document.getElementById('picture-mini-viewer');
+  if (miniViewer) {
+    miniViewer.classList.remove('is-active');
+    miniViewer.setAttribute('aria-hidden', 'true');
+  }
+  openPictureModal(currentPicIdx);
+}
+
+function closeMiniViewer() {
+  const miniViewer = document.getElementById('picture-mini-viewer');
+  if (miniViewer) {
+    miniViewer.classList.remove('is-active');
+    miniViewer.setAttribute('aria-hidden', 'true');
+  }
+}
+
+function prevPicture() {
+  let nextIdx = currentPicIdx - 1;
+  if (nextIdx < 0) nextIdx = GALLERY_PHOTOS.length - 1;
+  openPictureModal(nextIdx);
+}
+
+function nextPicture() {
+  let nextIdx = currentPicIdx + 1;
+  if (nextIdx >= GALLERY_PHOTOS.length) nextIdx = 0;
+  openPictureModal(nextIdx);
+}
+
+/**
+ * ==========================================================================
+ * 9. LANGUAGE SWITCHER (EN / JA)
  * ==========================================================================
  */
 function initLanguageSwitcher() {
@@ -1056,7 +1272,7 @@ function applyLanguage(lang) {
 
 /**
  * ==========================================================================
- * 9. MOBILE NAV
+ * 10. MOBILE NAV
  * ==========================================================================
  */
 function initMobileNav() {
@@ -1079,7 +1295,7 @@ function initMobileNav() {
 
 /**
  * ==========================================================================
- * 10. SCROLL NAVIGATION HIGHLIGHT
+ * 11. SCROLL NAVIGATION HIGHLIGHT
  * ==========================================================================
  */
 function initScrollNav() {
@@ -1106,12 +1322,12 @@ function initScrollNav() {
 
 /**
  * ==========================================================================
- * 11. SCROLL REVEAL ANIMATION
+ * 12. SCROLL REVEAL ANIMATION
  * ==========================================================================
  */
 function initScrollReveal() {
   const revealElements = document.querySelectorAll(
-    '.section-header-block, .showcase-container, .playlist-card, .chat-window, .disco-layout, .photo-grid'
+    '.section-header-block, .showcase-container, .playlist-card, .chat-window, .disco-layout, .photo-grid, .toei-photo-card'
   );
 
   revealElements.forEach(el => el.classList.add('reveal'));
@@ -1140,6 +1356,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTrackShowcase();
   initPlaylist();
   initLyricsModal();
+  initPictureViewer();
   initLanguageSwitcher();
   initSparkleCanvas();
   initMobileNav();

@@ -25,7 +25,10 @@ This repository (**`xepon-2`**) is a complete redesign crafted specifically for 
   5. `05` **BREAK THE LIMIT#2** (3:45) — *Climax Single ★*
 - **📱 LINE-Style Chat Transmission:** Replaces cold comms terminals with a familiar Japanese messaging interface documenting Toei Animation's frantic missed calls.
 - **✨ Sparkle Canvas Effect:** Custom lightweight HTML5 Canvas particle system generating cross sparkles and glowing circles.
-- **📸 Photocard & Polaroid Hover Effects:** 3D holographic sheen and tilted polaroid grids.
+- **📸 Photocard & Polaroid Hover Effects + Miniature Viewer:**
+  - Click any photo (Band Hero, Track Visualizers, Toei Banner, or Member Polaroids) to open in a full-scale lightbox.
+  - **Miniature Dock Mode:** Minimize the lightbox into a draggable floating miniature widget docked in the bottom-right corner to browse the site without losing your visual context!
+- **🎧 Phaseia Streaming Ecosystem:** Seamless integration with Phaseia streaming services and official artwork.
 - **⚡ Synchronized Track Selection:** Switch tracks seamlessly from the Hero banner, the interactive Track Showcase, or the 5-track Playlist table.
 
 ---
@@ -34,14 +37,14 @@ This repository (**`xepon-2`**) is a complete redesign crafted specifically for 
 
 - **HTML5:** Semantic markup with complete accessibility features and SSR fallback rows.
 - **CSS3:** Modern CSS variables, glassmorphism, responsive CSS Grid and Flexbox layouts.
-- **Vanilla JavaScript (ES6+):** Zero external dependencies, pure native audio management, dynamic i18n translation engine, and IntersectionObserver scroll animations.
+- **Vanilla JavaScript (ES6+):** Zero external dependencies, pure native audio management, dynamic i18n translation engine, interactive Lightbox/Miniature photo viewer, and IntersectionObserver scroll animations.
 
 ---
 
 ## 🚀 Live Demo
 
 - **GitHub Pages:** [https://marcuscaiado.github.io/xepon-2/](https://marcuscaiado.github.io/xepon-2/)
-- **Original Phase Discography (16 Tracks):** [Phase Official Artist Page](https://app.phase.app.br/?artist=a02db54f-13c9-4c9f-bb95-4b505880dcc2)
+- **Phaseia Discography (16 Tracks):** [Phaseia Official Artist Page](https://app.phase.app.br/?artist=a02db54f-13c9-4c9f-bb95-4b505880dcc2)
 
 ---
 
