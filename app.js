@@ -10,6 +10,7 @@ let currentLang = 'en';
 let currentTrackIdx = 4; // Start with featured climax single: BREAK THE LIMIT#2
 let currentShowcaseIdx = 0;
 let currentModalTrackIdx = 4;
+let currentLyricsViewMode = 'ja';
 let currentPicIdx = 0;
 let audioEl = null;
 let isPlaying = false;
@@ -41,7 +42,7 @@ const I18N = {
     hero_desc: 'Wall-of-sound production driven by high-gain guitars, high-velocity dynamic skank drumming, furious double-kick pedals, and raw female rock chest vocals. Stream the 5 featured tracks from <em>NEON & FRICTION</em> directly on site, or explore ✧XE・PON♡✧\'s full 16-song catalogue on <strong>Phaseia</strong>.',
     btn_play_single: "PLAY NEW SINGLE",
     btn_view_playlist: "VIEW ALL 5 TRACKS",
-    btn_lyrics_notes: "LYRICS & NOTES",
+    btn_lyrics_notes: "FULL LYRICS & NOTES",
     btn_sub_production: "PRODUCTION SPECS (ALL 5 SONGS)",
     stat_members: "MEMBERS",
     stat_phase_songs: "ON PHASEIA",
@@ -102,10 +103,18 @@ const I18N = {
     cap_akiba: "AKIHABARA GIGO ✧",
     cap_street: "SHIBUYA BACK-ALLEY ♡",
     cap_chrome: "SESSIONS ☆",
-    modal_chip: "LYRICS & NOTES // ✧XE・PON♡✧",
+    modal_chip: "OFFICIAL FULL LYRICS // ✧XE・PON♡✧",
     modal_specs: "Japanese Post-Hardcore • Track 05 • Featured Single",
     modal_btn_play: "PLAY THIS TRACK",
+    modal_btn_pause: "PAUSE THIS TRACK",
     modal_btn_close: "CLOSE",
+    btn_lyrics_short: "LYRICS",
+    tip_lyrics: "View Full Official Lyrics & Notes",
+    tab_original_ja: "🇯🇵 日本語 (Original)",
+    tab_romaji_en: "🌐 Romaji & English",
+    tab_side_by_side: "⚡ Side-by-Side",
+    notes_toggle_open: "▼ TRACK NOTES & PRODUCTION DETAILS",
+    dock_lyrics: "📜 LYRICS",
     dock_meta_default: "READY TO PLAY ♡",
     dock_meta_playing: "NOW PLAYING ⚡",
     dock_btn_phase: "PHASEIA ↗",
@@ -133,7 +142,7 @@ const I18N = {
     hero_desc: "ハイゲインギターが生み出す音の壁、超高速スカンクビート、怒涛のツーバス、そして感情と摩擦に満ちた女性ロックボーカルの生々しい叫び。『NEON & FRICTION』収録の厳選5曲をサイト内で直接試聴、またはPhaseiaで✧XE・PON♡✧の全16曲カタログをストリーミング。",
     btn_play_single: "新曲を再生",
     btn_view_playlist: "全5曲を見る",
-    btn_lyrics_notes: "歌詞 & ノート",
+    btn_lyrics_notes: "全曲フル歌詞 & ノート",
     btn_sub_production: "全5曲 制作ディレクション",
     stat_members: "メンバー",
     stat_phase_songs: "PHASEIA配信",
@@ -194,10 +203,18 @@ const I18N = {
     cap_akiba: "秋葉原GIGO ✧",
     cap_street: "渋谷の路地裏 ♡",
     cap_chrome: "セッション ☆",
-    modal_chip: "公式歌詞 & ノート // ✧XE・PON♡✧",
+    modal_chip: "公式フル歌詞 // ✧XE・PON♡✧",
     modal_specs: "ポストハードコア • 最新シングル",
     modal_btn_play: "この曲を再生",
+    modal_btn_pause: "一時停止",
     modal_btn_close: "閉じる",
+    btn_lyrics_short: "歌詞",
+    tip_lyrics: "公式フル歌詞・楽曲ノートを見る",
+    tab_original_ja: "🇯🇵 日本語 (原詞)",
+    tab_romaji_en: "🌐 英語 / ローマ字 (対訳)",
+    tab_side_by_side: "⚡ 並列表示",
+    notes_toggle_open: "▼ 楽曲解説・サウンドノートを見る",
+    dock_lyrics: "📜 歌詞",
     dock_meta_default: "再生準備完了 ♡",
     dock_meta_playing: "再生中 ⚡",
     dock_btn_phase: "PHASEIA ↗",
@@ -396,6 +413,492 @@ const XE_PON_SHOWCASE = [
       ja: "「叫べ！夜を切り裂いて光を掴め！」"
     },
     phaseUrl: "https://app.phase.app.br/?track=a49e18b4-39cf-44f6-8f29-9f5dbebeed17"
+  }
+];
+
+/**
+ * ==========================================================================
+ * 2.15 COMPLETE OFFICIAL FULL LYRICS (ALL 5 ORIGINAL TRACKS)
+ * Full lyrics with verses, pre-choruses, choruses, bridges, and outros
+ * Both Japanese original and English / Romaji translation
+ * ==========================================================================
+ */
+const XE_PON_LYRICS = [
+  {
+    trackIndex: 0,
+    title: "ASTRAL SHIBUYA OVERDRIVE",
+    tempo: "178 BPM • Drop D Tuning • Fuzz Rock",
+    stanzas: [
+      {
+        tag: { ja: "VERSE 1 // Aメロ", en: "VERSE 1 // INTRO" },
+        isChorus: false,
+        lines: [
+          { ja: "深夜二時のスクランブル　消えかけの青信号", en: "2 AM at the Shibuya Scramble, green light flickering out.", romaji: "Shinya niji no scramble, kiekake no aoshingou" },
+          { ja: "雨上がりのアスファルト　滲むネオンの乱反射", en: "Wet asphalt shining with the blur of distorted neon reflections.", romaji: "Ameagari no asufaruto, nijimu neon no ranhansha" },
+          { ja: "擦り切れたコンバースで　影を踏み鳴らしてく", en: "Stomping down midnight shadows in shredded Converse sneakers.", romaji: "Surikireta konbaasu de, kage o fuminarashiteku" },
+          { ja: "誰かの引いた境界線なんて　蹴り飛ばして加速しろ！", en: "Kick aside whatever boundary someone else drew and accelerate!", romaji: "Dareka no hiita kyoukaisen nante, keritobashite kasoku shiro!" }
+        ]
+      },
+      {
+        tag: { ja: "PRE-CHORUS // Bメロ", en: "PRE-CHORUS // ACCEL" },
+        isChorus: false,
+        lines: [
+          { ja: "鼓動が178を刻んでる", en: "My pulse is hammering at 178 BPM!", romaji: "Kodou ga hyaku-nanajuu-hachi o kizanderu" },
+          { ja: "歪むファズギター　耳鳴りを引き裂いて", en: "Screaming fuzz guitar tearing right through the tinnitus.", romaji: "Yugamu fazu gitaa, miminari o hikisaite" },
+          { ja: "「立ち止まるな」と夜が叫んでる", en: "The midnight screams at us: 'Don't you dare stand still!'", romaji: "'Tachidomaru na' to yoru ga sakenderu" },
+          { ja: "信号が変わる前に――今すぐ飛び込め！", en: "Before the signal turns—dive right in now!", romaji: "Shingou ga kawaru mae ni—ima sugu tobikome!" }
+        ]
+      },
+      {
+        tag: { ja: "CHORUS // サビ", en: "CHORUS // FIRST DROP" },
+        isChorus: true,
+        lines: [
+          { ja: "ASTRAL OVERDRIVE！　真夜中を撃ち抜け！", en: "ASTRAL OVERDRIVE! Shoot straight through the dead of night!", romaji: "ASTRAL OVERDRIVE! Mayonaka o uchinuke!", highlight: true },
+          { ja: "雑音だらけの街で　僕らの声だけがリアルだ！", en: "In a city drowned in white noise, only our voices are real!", romaji: "Zatsuon darake no machi de, bokura no koe dake ga riaru da!", highlight: true },
+          { ja: "ネオンの嵐を蹴散らして走れ", en: "Kick through the electric storm and sprint!", romaji: "Neon no arashi o kechirashite hashire" },
+          { ja: "東京の空を貫くまで　鳴り止まないディストーション！", en: "Distortion that will never cease until it pierces Tokyo's skyline!", romaji: "Toukyou no sora o tsuranuku made, nariyamanai disutooshon!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "VERSE 2 // Aメロ", en: "VERSE 2 // BACK-ALLEY" },
+        isChorus: false,
+        lines: [
+          { ja: "センター街の路地裏　落書きだらけの壁", en: "Center-Gai back-alleys, concrete tagged with faded graffiti.", romaji: "Sentaagai no rojiura, rakugaki darake no kabe" },
+          { ja: "冷え切った自販機に　もたれて見上げた三日月", en: "Leaning against a freezing vending machine, staring at the crescent moon.", romaji: "Hiekitta jihanki ni, motarete miageta mikazuki" },
+          { ja: "約束なんていらない　今ここにある熱だけで", en: "We don't need promises—just the burning heat alive right here.", romaji: "Yakusoku nante iranai, ima koko ni aru netsu dake de" },
+          { ja: "擦り切れたピック握りしめ　次のコードを叩きつける！", en: "Gripping a shredded guitar pick, slamming down the next chord!", romaji: "Surikireta pikku nigirishime, tsugi no koudo o tatakitsukeru!" }
+        ]
+      },
+      {
+        tag: { ja: "PRE-CHORUS // Bメロ", en: "PRE-CHORUS // SURGE" },
+        isChorus: false,
+        lines: [
+          { ja: "息が切れても　足がもつれても", en: "Even if our lungs burn out, even if our legs stumble,", romaji: "Iki ga kiretemo, ashi ga motsuretemo" },
+          { ja: "アンプから火花が散るその瞬間", en: "The very millisecond sparks burst from the amplifier stack,", romaji: "Anpu kara hibana ga chiru sono shunkan" },
+          { ja: "世界が息を止めるのが見えた", en: "I saw the entire world hold its breath!", romaji: "Sekai ga iki o tomeru no ga mieta" },
+          { ja: "もう誰にも僕らを止められない！", en: "Nobody alive can hold us back now!", romaji: "Mou dare ni mo bokura o tomerarenai!" }
+        ]
+      },
+      {
+        tag: { ja: "CHORUS // サビ", en: "CHORUS // SECOND DROP" },
+        isChorus: true,
+        lines: [
+          { ja: "ASTRAL OVERDRIVE！　闇を切り裂いて行け！", en: "ASTRAL OVERDRIVE! Rip straight through the dark!", romaji: "ASTRAL OVERDRIVE! Yami o kirisaite yuke!", highlight: true },
+          { ja: "誰にも奪えない　僕らだけの周波数で！", en: "On a sacred frequency that nobody can ever steal!", romaji: "Dare ni mo ubaenai, bokura dake no shuuhasuu de!", highlight: true },
+          { ja: "擦り減る靴底　火花を撒き散らし", en: "Shoe soles wearing paper-thin, throwing showers of sparks!", romaji: "Suriheru kutsuzoko, hibana o makichirashi" },
+          { ja: "星も届かないアスファルトを　僕らの色に染め変えろ！", en: "Dye the starless Tokyo asphalt in our own blazing colors!", romaji: "Hoshi mo todokanai asufaruto o, bokura no iro ni somekaero!" }
+        ]
+      },
+      {
+        tag: { ja: "BRIDGE // ギターソロ＆ブレイクダウン", en: "BRIDGE // TWIN GUITAR HARMONY" },
+        isBridge: true,
+        lines: [
+          { ja: "（Twin Guitars Melodic Harmony // 178 BPM Skank Beat）", en: "(Twin Guitars Melodic Harmony // 178 BPM Skank Beat)", romaji: "[Twin Guitars Melodic Harmony // 178 BPM Skank Beat]" },
+          { ja: "擦り切れた過去の残響なんて", en: "Hollow echoes of yesterday's broken moments—", romaji: "Surikireta kako no zankyou nante" },
+          { ja: "この爆音オーバードライブで塗り潰せ！", en: "Paint over every single one of them with this roaring overdrive!", romaji: "Kono bakuon oobaadoraibu de nuritsubuse!" },
+          { ja: "Ready? 1, 2, 3, Scream!!", en: "Ready? 1, 2, 3, Scream!!", romaji: "Ready? 1, 2, 3, Scream!!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "CLIMAX CHORUS // ラスサビ", en: "CLIMAX CHORUS // FINAL ROAR" },
+        isChorus: true,
+        lines: [
+          { ja: "ASTRAL OVERDRIVE！　最後の一秒まで！", en: "ASTRAL OVERDRIVE! Down to the very last fraction of a second!", romaji: "ASTRAL OVERDRIVE! Saigo no ichibyou made!", highlight: true },
+          { ja: "叫べ！震えろ！この心臓が燃え尽きるまで！", en: "Scream! Shake! Until this beating heart burns completely to ash!", romaji: "Sakebe! Furuero! Kono shinzou ga moetsukiru made!", highlight: true },
+          { ja: "夜が明ける前に　光をこの手で掴み取れ", en: "Before the dawn breaks, snatch the light with our own bare hands!", romaji: "Yoru ga akeru mae ni, hikari o kono te de tsukamitore" },
+          { ja: "東京の真夜中を貫いて　僕らの歌は終わらない！", en: "Piercing through midnight Shibuya—our song will never die!", romaji: "Toukyou no mayonaka o tsuranuite, bokura no uta wa owaranai!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "OUTRO // アウトロ", en: "OUTRO // FEEDBACK FADE" },
+        isChorus: false,
+        lines: [
+          { ja: "Overdrive... 響け、世界の果てまで。", en: "Overdrive... echo to the ends of the earth.", romaji: "Overdrive... hibike, sekai no hate made." },
+          { ja: "Shibuya Midnight, never die ♡", en: "Shibuya Midnight, never die ♡", romaji: "Shibuya Midnight, never die ♡", highlight: true }
+        ]
+      }
+    ]
+  },
+  {
+    trackIndex: 1,
+    title: "ZANGAI",
+    tempo: "182 BPM • Drop C# Tuning • Math Rock & Post-Hardcore",
+    stanzas: [
+      {
+        tag: { ja: "VERSE 1 // Aメロ", en: "VERSE 1 // FRACTURED SCREEN" },
+        isChorus: false,
+        lines: [
+          { ja: "割れたスマホの液晶に　歪んで映る冷めた顔", en: "A cold, detached face reflected crooked on a cracked smartphone screen.", romaji: "Wareta sumaho no ekishou ni, yugande utsuru sameta kao" },
+          { ja: "散らばったガラスの破片が　昨日の後悔を反射する", en: "Scattered glass shards reflecting every bitter regret of yesterday.", romaji: "Chirabatta garasu no hahen ga, kinou no koukai o hansha suru" },
+          { ja: "「これで終わりだ」って　誰が決めた？", en: "'This is the end'—who the hell decided that?", romaji: "'Kore de owari da' tte, dare ga kimeta?" },
+          { ja: "精密に狂った不協和音　指先で弾き直してく", en: "Precision-calculated dissonance, tapped back into life with raw fingertips.", romaji: "Seimitsu ni kurutta fukyouwaon, yubisaki de hikinaoshiteku" }
+        ]
+      },
+      {
+        tag: { ja: "PRE-CHORUS // Bメロ", en: "PRE-CHORUS // 7/8 SPIRAL" },
+        isChorus: false,
+        lines: [
+          { ja: "7/8の螺旋階段　駆け上がっていく変拍子", en: "Sprinting up a 7/8 spiral staircase, odd-meter heartbeat accelerating.", romaji: "Hachi-bun-no-nana no rasenkaidan, kakeagatte iku henbyoushi" },
+          { ja: "タッピングの残響が　夜のコンクリートを叩く", en: "Reverberating two-hand tapping pounding against cold midnight concrete.", romaji: "Tappingu no zankyou ga, yoru no konkuriito o tataku" },
+          { ja: "息を止めて、弦を叩け――", en: "Hold your breath, hammer-on the strings—", romaji: "Iki o tomete, gen o tatake—" },
+          { ja: "痛みを全部、音に変えて解き放て！", en: "Transmute every ounce of agony into roaring, cathartic sound!", romaji: "Itami o zenbu, oto ni kaete tokihanate!" }
+        ]
+      },
+      {
+        tag: { ja: "CHORUS // サビ", en: "CHORUS // RESURGENCE" },
+        isChorus: true,
+        lines: [
+          { ja: "残骸の中から立ち上がれ！ (ZANGAI!)", en: "Rise up from the debris! (ZANGAI!)", romaji: "Zangai no naka kara tachiagare!", highlight: true },
+          { ja: "砕け散った夢の破片で　この喉を切り裂いて叫べ！", en: "Cut your throat on the shards of shattered dreams and SCREAM!", romaji: "Kudakechitta yume no hahen de, kono nodo o kirisaite sakebe!", highlight: true },
+          { ja: "綺麗じゃなくていい　傷だらけでいい", en: "It doesn't have to be pretty! Be covered in raw battle scars!", romaji: "Kirei ja nakute ii, kizudarake de ii" },
+          { ja: "ゼロになった瓦礫の上で　新しい朝を睨みつけろ！", en: "Standing atop the ruins of zero, glare right back into the coming morning!", romaji: "Zero ni natta gareki no ue de, atarashii asa o niramitsukero!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "VERSE 2 // Aメロ", en: "VERSE 2 // UNDERGROUND" },
+        isChorus: false,
+        lines: [
+          { ja: "地下鉄のホームに響く　無機質なアナウンス", en: "Sterile, mechanical announcements echoing across empty subway platforms.", romaji: "Chikatetsu no hoomu ni hibiku, mukishitsu na anaunsu" },
+          { ja: "人混みに押し流されて　消えそうだった自分の声", en: "Shoved around by the Tokyo commute, my voice was about to disappear.", romaji: "Hitogomi ni oshinagasarete, kiesou datta jibun no koe" },
+          { ja: "拾い集めた破片は　まだ熱を帯びてる", en: "But the broken shards I gathered up are still burning red-hot!", romaji: "Hiroiatsumeta hahen wa, mada netsu o obiteru" },
+          { ja: "捨てちまうには　惜しすぎるガラクタだろ？", en: "Far too precious to throw away as mere junk, don't you think?", romaji: "Sutechimau ni wa, oshisugiru garakuta daro?" }
+        ]
+      },
+      {
+        tag: { ja: "PRE-CHORUS // Bメロ", en: "PRE-CHORUS // UNCALCULATED" },
+        isChorus: false,
+        lines: [
+          { ja: "計算通りの未来なんて　蹴り砕いて壊せ", en: "Shatter every safe, predictable future down to dust!", romaji: "Keisandoori no mirai nante, kerikudaite kowase" },
+          { ja: "不協和音の中にしか　本当の僕らはいない", en: "The real versions of us only exist inside this dissonance!", romaji: "Fukyouwaon no naka ni shika, hontou no bokura wa inai" },
+          { ja: "もう何も恐れるものはない", en: "There is nothing left on this earth to fear!", romaji: "Mou nani mo osoreru mono wa nai" },
+          { ja: "ガレキの真ん中で踊り明かせ！", en: "Dance through the night in the very center of the wreckage!", romaji: "Gareki no mannaka de odoriakase!" }
+        ]
+      },
+      {
+        tag: { ja: "CHORUS // サビ", en: "CHORUS // FANFARE OF RESURGENCE" },
+        isChorus: true,
+        lines: [
+          { ja: "残骸の中から立ち上がれ！", en: "Rise up from the debris!", romaji: "Zangai no naka kara tachiagare!", highlight: true },
+          { ja: "失くしたものばかり数えるな　手の中の摩擦を感じろ！", en: "Stop counting what you lost—feel the friction burning in your palms!", romaji: "Nakushita mono bakari kazoeru na, te no naka no masatsu o kanjiro!", highlight: true },
+          { ja: "絶望を燃料にして燃やせ", en: "Burn cold despair as raw high-octane rocket fuel!", romaji: "Zetsubou o nenryou ni shite moyase" },
+          { ja: "灰の中から響かせる　僕らの再起のファンファーレ！", en: "Echoing from the ash: our unstoppable fanfare of resurgence!", romaji: "Hai no naka kara hibikaseru, bokura no saiki no fanfaare!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "BRIDGE // マスロック・タッピング間奏", en: "BRIDGE // COMPLEX TAPPING" },
+        isBridge: true,
+        lines: [
+          { ja: "（高速タッピングソロ // 5/8 ➔ 7/8 ➔ 4/4 展開）", en: "(Rapid two-hand tapping guitar solo // 5/8 ➔ 7/8 ➔ 4/4 shifts)", romaji: "[Kousoku tappingu solo // 5/8 ➔ 7/8 ➔ 4/4 tenkai]" },
+          { ja: "壊れたからこそ、もう二度と壊れない。", en: "Because we broke once, we can never, ever be broken again.", romaji: "Kowareta kara koso, mou nido to kowarenai." },
+          { ja: "ここからが、僕らの真の始まりだ！", en: "From here on, our true beginning begins!", romaji: "Koko kara ga, bokura no shin no hajimari da!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "CLIMAX CHORUS // ラスサビ", en: "CLIMAX CHORUS // BLOOD RED SKY" },
+        isChorus: true,
+        lines: [
+          { ja: "残骸を越えて飛び立て！", en: "Leap over the debris and take flight!", romaji: "Zangai o koete tobitate!", highlight: true },
+          { ja: "傷口から溢れ出た熱情が　夜空を真っ赤に染める！", en: "The passion spilling from open wounds paints the night sky blood red!", romaji: "Kizuguchi kara afuredeta netsujou ga, yozora o makka ni someru!", highlight: true },
+          { ja: "誰にも真似できない　僕らの不完全な証明", en: "Our flawed, irreplaceable proof of living on this earth!", romaji: "Dare ni mo mane dekinai, bokura no fukanzen na shoumei" },
+          { ja: "生き残ったこの声で　明日を奪い取れ！", en: "With this surviving voice, tear tomorrow into our hands!", romaji: "Ikinokotta kono koe de, ashita o ubaitore!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "OUTRO // アウトロ", en: "OUTRO // STILL BREATHING" },
+        isChorus: false,
+        lines: [
+          { ja: "残骸の上に咲いた、消えない火花。", en: "A stubborn spark blooming on top of the rubble that never dies.", romaji: "Zangai no ue ni saita, kienai hibana." },
+          { ja: "We survive. We breathe. We scream again.", en: "We survive. We breathe. We scream again.", romaji: "We survive. We breathe. We scream again.", highlight: true }
+        ]
+      }
+    ]
+  },
+  {
+    trackIndex: 2,
+    title: "BREAK THE LIMIT#1",
+    tempo: "186 BPM • Standard E Tuning • Melodic Skate Punk",
+    stanzas: [
+      {
+        tag: { ja: "VERSE 1 // Aメロ", en: "VERSE 1 // REDLINE" },
+        isChorus: false,
+        lines: [
+          { ja: "リミッターなんて最初から　壊して捨ててきたんだ", en: "We smashed the limiter and threw it away from day one!", romaji: "Rimittaa nante saisho kara, kowashite sutete kitanda" },
+          { ja: "針がレッドゾーン振り切って　心臓が追いつかない", en: "The needle redlining past the gauge, heart struggling to keep up.", romaji: "Hari ga reddozoon furikitte, shinzou ga oitsukanai" },
+          { ja: "ガレージのシャッター蹴り上げて　鳴り響くドラムロール", en: "Kicking open the garage shutter, snare drum rolling with fury.", romaji: "Gareeji no shattaa keriagete, narihibiku doramu rooru" },
+          { ja: "186のビートに背中を押されて　飛び出す街角！", en: "Propelled by a 186 BPM beat, exploding into the Tokyo streets!", romaji: "Hyaku-hachijuu-roku no biito ni senaka o osarete, tobidasu machikado!" }
+        ]
+      },
+      {
+        tag: { ja: "PRE-CHORUS // Bメロ", en: "PRE-CHORUS // HEADWIND" },
+        isChorus: false,
+        lines: [
+          { ja: "迷ってる暇なんて一秒もない", en: "Not a single split second to second-guess ourselves!", romaji: "Mayotteru hima nante ichibyou mo nai" },
+          { ja: "向かい風を最大の味方につけて", en: "Turn the furious headwind into our greatest weapon!", romaji: "Mukaikaze o saidai no mikata ni tsukete" },
+          { ja: "靴紐を固く結び直したら", en: "Tie your laces tight—", romaji: "Kutsuhimo o kataku musubinaoshitara" },
+          { ja: "Go! Count 3, 2, 1, JUMP!!", en: "Go! Count 3, 2, 1, JUMP!!", romaji: "Go! Count 3, 2, 1, JUMP!!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "CHORUS // サビ", en: "CHORUS // BREAK THE LIMIT" },
+        isChorus: true,
+        lines: [
+          { ja: "BREAK THE LIMIT！　限界をブチ破れ！", en: "BREAK THE LIMIT! Smash straight through the ceiling!", romaji: "BREAK THE LIMIT! Genkai o buchiyabure!", highlight: true },
+          { ja: "息が止まるほどのスピードで　昨日までの自分を置き去りにしろ！", en: "At a speed that steals your breath, leave yesterday's self far behind!", romaji: "Iki ga tomaru hodo no supiido de, kinou made no jibun o okizari ni shiro!", highlight: true },
+          { ja: "泣いてる暇があるなら前を向け", en: "If you have time to weep, you have time to charge ahead!", romaji: "Naiteru hima ga aru nara mae o muke" },
+          { ja: "転んでも立ち上がって　笑い飛ばしてやれ！", en: "Even when you hit the pavement, stand right back up and laugh in its face!", romaji: "Korondemo tachiagatte, waraitobashite yare!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "VERSE 2 // Aメロ", en: "VERSE 2 // YOUTH UNSTOPPABLE" },
+        isChorus: false,
+        lines: [
+          { ja: "すり減ったピックと弦のサビ　汗に濡れたTシャツ", en: "Shredded picks, rusted guitar strings, t-shirts drenched in sweat.", romaji: "Surikireta pikku to gen no sabi, ase ni nureta tiishatsu" },
+          { ja: "周りの冷たい視線なんて　風圧で吹き飛んだ", en: "The cynical stares of the crowd got blown away by the air pressure!", romaji: "Mawari no tsumetai shisen nante, fuuatsu de fukitonda" },
+          { ja: "「無理だ」って言葉を吐き捨てて　ボリューム全開に回せ", en: "Spit out the word 'impossible' and crank the volume knob to ten!", romaji: "'Muri da' tte kotoba o hakisutete, boryuumu zenkai ni mawase" },
+          { ja: "僕らの青春は　誰にも止められない！", en: "Our roaring youth cannot be stopped by any force on earth!", romaji: "Bokura no seishun wa, dare ni mo tomerarenai!" }
+        ]
+      },
+      {
+        tag: { ja: "PRE-CHORUS // Bメロ", en: "PRE-CHORUS // SIREN CALL" },
+        isChorus: false,
+        lines: [
+          { ja: "熱くなった真空管アンプが唸りを上げる", en: "Overheated tube amps growling with distortion.", romaji: "Atsuku natta shinkuukan anpu ga unari o ageru" },
+          { ja: "高鳴る胸のサイレンが鳴り響く", en: "Sirens in our chest ringing with adrenaline.", romaji: "Takanaru mune no sairen ga narihibiku" },
+          { ja: "限界線のその先へ飛び込め", en: "Dive past the finish line into the unknown—", romaji: "Genkaisen no sono saki e tobikome" },
+          { ja: "Are you ready to BREAK THROUGH?!", en: "Are you ready to BREAK THROUGH?!", romaji: "Are you ready to BREAK THROUGH?!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "CHORUS // サビ", en: "CHORUS // HURRICANE SPEED" },
+        isChorus: true,
+        lines: [
+          { ja: "BREAK THE LIMIT！　空を蹴り上げて飛べ！", en: "BREAK THE LIMIT! Kick the sky and take flight!", romaji: "BREAK THE LIMIT! Sora o keriagete tobe!", highlight: true },
+          { ja: "誰の指図も受けない　僕らだけのスピードで！", en: "Taking orders from nobody—running at our own reckless speed!", romaji: "Dare no sashizu mo ukenai, bokura dake no supiido de!", highlight: true },
+          { ja: "心臓の音が叫び声と重なる瞬間", en: "The instant our heartbeat fuses with our screams,", romaji: "Shinzou no oto ga sakebigoe to kasanaru shunkan" },
+          { ja: "世界中を巻き込んで　嵐を巻き起こせ！", en: "Pull the entire universe in and ignite a hurricane!", romaji: "Sekaijuu o makikonde, arashi o makiokose!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "BRIDGE // メロディックパンク・ブレイクダウン", en: "BRIDGE // SKANK PIT BREAKDOWN" },
+        isBridge: true,
+        lines: [
+          { ja: "（186 BPM 超高速スカンクビート＆コーラス掛け合い）", en: "(186 BPM Hyper-Speed Skank Beat & Gang Vocals)", romaji: "[186 BPM Choukousoku Skank Beat & Chorus Kakeai]" },
+          { ja: "Wo-oh-oh! Break it down!", en: "Wo-oh-oh! Break it down!", romaji: "Wo-oh-oh! Break it down!" },
+          { ja: "Wo-oh-oh! Never slow down!", en: "Wo-oh-oh! Never slow down!", romaji: "Wo-oh-oh! Never slow down!" },
+          { ja: "「限界」なんて誰かの妄想だ！ぶち壊せ！", en: "'Limits' are just someone else's delusion! Smash them!", romaji: "'Genkai' nante dareka no mousou da! Buchikowase!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "CLIMAX CHORUS // ラスサビ", en: "CLIMAX CHORUS // MAXIMUM HORIZON" },
+        isChorus: true,
+        lines: [
+          { ja: "BREAK THE LIMIT！　もっと先へ、もっと速く！", en: "BREAK THE LIMIT! Further ahead! Even faster!", romaji: "BREAK THE LIMIT! Motto saki e, motto hayaku!", highlight: true },
+          { ja: "このスピードの向こう側で　待ってる景色を見に行こう！", en: "Let's see the horizon waiting on the other side of maximum velocity!", romaji: "Kono supiido no mukougawa de, matteru keshiki o mi ni ikou!", highlight: true },
+          { ja: "一度きりの命を燃やし尽くせ", en: "Burn this one-and-only life down to embers!", romaji: "Ichidokiri no inochi o moyashitsukuse" },
+          { ja: "輝け、誰よりも眩しく！", en: "Shine brighter than anything in the world!", romaji: "Kagayake, dare yori mo mabushiku!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "OUTRO // アウトロ", en: "OUTRO // NO TURNING BACK" },
+        isChorus: false,
+        lines: [
+          { ja: "Break the limit, no turning back!", en: "Break the limit, no turning back!", romaji: "Break the limit, no turning back!" },
+          { ja: "Break the limit, screaming loud!", en: "Break the limit, screaming loud!", romaji: "Break the limit, screaming loud!" },
+          { ja: "限界の向こうへ――Go!", en: "Beyond the limit—GO!", romaji: "Genkai no mukou e—Go!", highlight: true }
+        ]
+      }
+    ]
+  },
+  {
+    trackIndex: 3,
+    title: "HIBANA",
+    tempo: "192 BPM • Drop D Tuning • Double-Bass Hardcore",
+    stanzas: [
+      {
+        tag: { ja: "VERSE 1 // Aメロ", en: "VERSE 1 // 0.1 SECONDS" },
+        isChorus: false,
+        lines: [
+          { ja: "ぶつかり合う視線の熱さ　火花が散る0.1秒", en: "Searing collision of locked gazes—sparks erupting in 0.1 seconds.", romaji: "Butsukariau shisen no atsusa, hibana ga chiru reiten-ichi byou" },
+          { ja: "冷たい夜風が切り裂く　剥き出しの感情", en: "Freezing midnight wind slicing through stripped-bare emotions.", romaji: "Tsumetai yokaze ga kirisaku, mukidashi no kanjou" },
+          { ja: "言葉なんて飾りはいらない　音階だけで語り合え", en: "We don't need decorative words—speak only in overdrive frequencies!", romaji: "Kotoba nante kazari wa iranai, onkai dake de katariae" },
+          { ja: "指先が擦り切れて血が滲んでも　弦を緩めるな！", en: "Even if fingertips shred and bleed, don't you dare loosen that string!", romaji: "Yubisaki ga surikirete chi ga nijindemo, gen o yurumeru na!" }
+        ]
+      },
+      {
+        tag: { ja: "PRE-CHORUS // Bメロ", en: "PRE-CHORUS // POWDER KEG" },
+        isChorus: false,
+        lines: [
+          { ja: "ツーバスが地響きを立てて迫る", en: "Double-bass pedals rumbling like a subterranean earthquake.", romaji: "Tsuubasu ga jihibiki o tatete semaru" },
+          { ja: "加速していく鼓動のシンコペーション", en: "Accelerating syncopation of a runaway heartbeat.", romaji: "Kasoku shite iku kodou no shinkopeeshon" },
+          { ja: "触れ合えば一瞬で燃え上がる導火線", en: "A powder-keg fuse detonating the instant of contact—", romaji: "Fureaeba isshun de moeagaru doukasen" },
+          { ja: "一瞬でいい、全部焼き尽くしてしまえ！", en: "Even if it's just for one flash, burn everything to the ground!", romaji: "Isshun de ii, zenbu yakitsukushite shimae!" }
+        ]
+      },
+      {
+        tag: { ja: "CHORUS // サビ", en: "CHORUS // ILLUMINATE THE DARK" },
+        isChorus: true,
+        lines: [
+          { ja: "火花を散らせ！ (HIBANA!)　暗闇を照らし出せ！", en: "LET THE SPARKS FLY! (HIBANA!) Illuminate the abyss!", romaji: "Hibana o chirase! Kurayami o terashidase!", highlight: true },
+          { ja: "二つの魂が激突する　その閃光で世界を染めろ！", en: "Two souls colliding head-on—dye the world in that blinding flash!", romaji: "Futatsu no tamashii ga gekitotsu suru, sono senkou de sekai o somero!", highlight: true },
+          { ja: "窒息しそうな夜を撃ち落とせ", en: "Shoot down this suffocating night!", romaji: "Chissoku shisou na yoru o uchiotose" },
+          { ja: "僕らの命が爆ぜる音を聴け！", en: "Listen to the roar of our lives detonating into the sky!", romaji: "Bokura no inochi ga hazeru oto o kike!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "VERSE 2 // Aメロ", en: "VERSE 2 // MELTING THE BARS" },
+        isChorus: false,
+        lines: [
+          { ja: "冷め切った街並みが　僕らを規格品に閉じ込めようとする", en: "The cynical cityscape tries to lock us into a cookie-cutter mold.", romaji: "Samekitta machinami ga, bokura o kikakuhin ni tojikomeyou to suru" },
+          { ja: "そんな檻なんて　摩擦の熱で溶かしてしまえ", en: "Melt those prison bars with the raw heat of our friction!", romaji: "Sonna ori nante, masatsu no netsu de tokashite shimae" },
+          { ja: "静寂を切り裂くドラムスネア", en: "Snare drum cracks tearing through the suffocating silence.", romaji: "Seijaku o kirisaku doramu sunea" },
+          { ja: "反骨の証を　この胸に深く刻み込め！", en: "Carve the proof of rebellion deep into your chest!", romaji: "Hankotsu no akashi o, kono mune ni fukaku kizamikome!" }
+        ]
+      },
+      {
+        tag: { ja: "PRE-CHORUS // Bメロ", en: "PRE-CHORUS // BLUE FIRE" },
+        isChorus: false,
+        lines: [
+          { ja: "ためらいを捨てた瞳に宿る蒼い炎", en: "Blue flames burning in eyes that shed all hesitation.", romaji: "Tamerai o suteta hitomi ni yadoru aoi honoo" },
+          { ja: "ギターのハウリングが突撃の合図だ", en: "Howling feedback from the guitar is our charge signal!", romaji: "Gitaa no hauringu ga totsugeki no aizu da" },
+          { ja: "爆発する寸前の沈黙を破れ", en: "Shatter the silence on the verge of detonation—", romaji: "Bakuhatsu suru sunzen no chinmoku o yabure" },
+          { ja: "いくよ――火をつけろ！！", en: "Here we go—IGNITE!!", romaji: "Iku yo—hi o tsukero!!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "CHORUS // サビ", en: "CHORUS // ETERNAL TRUTH" },
+        isChorus: true,
+        lines: [
+          { ja: "火花を散らせ！　燃え尽きることを恐れるな！", en: "LET THE SPARKS FLY! Fear no burnout!", romaji: "Hibana o chirase! Moetsukiru koto o osoreru na!", highlight: true },
+          { ja: "一瞬の閃光の中にこそ　永遠の真実がある！", en: "Because eternal truth only lives inside that single blinding flash!", romaji: "Isshun no senkou no naka ni koso, eien no shinjitsu ga aru!", highlight: true },
+          { ja: "涙も痛みも全部熱量に変えて", en: "Convert every drop of tears and pain into pure thermal power!", romaji: "Namida mo itami mo zenbu netsuryou ni kaete" },
+          { ja: "燃え上がれ、星よりも熱く！", en: "Burn up, hotter than any supernova!", romaji: "Moeagare, hoshi yori mo atsuku!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "BRIDGE // 怒涛のツーバス・ブレイクダウン", en: "BRIDGE // DOUBLE KICK ONSLAUGHT" },
+        isBridge: true,
+        lines: [
+          { ja: "（192 BPM 高速ツーバス連打 // ヘヴィリフ）", en: "(192 BPM Relentless Double-Bass Gallop // Heavy Riff)", romaji: "[192 BPM Kousoku Tsuubasu Renda // Heavy Riff]" },
+          { ja: "Spark! Burn! Ignite!", en: "Spark! Burn! Ignite!", romaji: "Spark! Burn! Ignite!" },
+          { ja: "摩擦から生まれる剥き出しの衝動", en: "The stripped-bare impulse born from raw friction!", romaji: "Masatsu kara umareru mukidashi no shoudou" },
+          { ja: "冷めるくらいなら、今ここで灰になれ！", en: "If you're going to turn cold, turn into ash right here!", romaji: "Sameru kurai nara, ima koko de hai ni nare!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "CLIMAX CHORUS // ラスサビ", en: "CLIMAX CHORUS // CRIMSON DAWN" },
+        isChorus: true,
+        lines: [
+          { ja: "火花よ、紅蓮の炎となれ！", en: "Sparks, transform into roaring crimson flames!", romaji: "Hibana yo, guren no honoo to nare!", highlight: true },
+          { ja: "僕らの叫びが夜空を焦がし　新しい夜明けを引きずり降ろす！", en: "Our roar will scorch the night sky and drag down the new dawn!", romaji: "Bokura no sakebi ga yozora o kogashi, atarashii yoake o hikizuriorosu!", highlight: true },
+          { ja: "生きている証をここに刻め", en: "Carve the undeniable proof that we lived right here!", romaji: "Ikite iru akashi o koko ni kizame" },
+          { ja: "消えない光を　この胸に宿して走れ！", en: "Carry this unquenchable light in your chest and run!", romaji: "Kienai hikari o, kono mune ni yadoshite hashire!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "OUTRO // アウトロ", en: "OUTRO // NEVER FADE AWAY" },
+        isChorus: false,
+        lines: [
+          { ja: "Hibana... ignite the dark.", en: "Hibana... ignite the dark.", romaji: "Hibana... ignite the dark." },
+          { ja: "Never fade away ♡", en: "Never fade away ♡", romaji: "Never fade away ♡", highlight: true }
+        ]
+      }
+    ]
+  },
+  {
+    trackIndex: 4,
+    title: "BREAK THE LIMIT#2",
+    tempo: "195 BPM • Drop D Tuning • Post-Hardcore Climax Single ★",
+    stanzas: [
+      {
+        tag: { ja: "VERSE 1 // Aメロ", en: "VERSE 1 // 3:00 AM DESTINY" },
+        isChorus: false,
+        lines: [
+          { ja: "運命の鐘が鳴り響く午前3時", en: "The bells of destiny ringing out through the city at 3:00 AM.", romaji: "Unmei no kane ga narihibiku gozen sanji" },
+          { ja: "眠らない街の屋上　風が髪を激しく揺らす", en: "Rooftop overlooking the sleepless city, wild winds whipping our hair.", romaji: "Nemuranai machi no okujou, kaze ga kami o gekishiku yurasu" },
+          { ja: "描きかけの未来予想図なんて破り捨てた", en: "Tore up that half-baked roadmap of the future they tried to hand us.", romaji: "Egakikake no mirai yosouzu nante yaburisuteta" },
+          { ja: "誰かの作ったシナリオ通りに生きてたまるかよ！", en: "As if we'd ever live our lives according to someone else's script!", romaji: "Dareka no tsukutta shinario doori ni ikite tamaru ka yo!" }
+        ]
+      },
+      {
+        tag: { ja: "PRE-CHORUS // Bメロ", en: "PRE-CHORUS // 108 MISSED CALLS" },
+        isChorus: false,
+        lines: [
+          { ja: "モニターの向こう　108件の着信履歴", en: "On the other side of the glowing screen: 108 missed calls from the anime studio desk.", romaji: "Monitaa no mukou, hyaku-hachi-ken no chakushin rireki" },
+          { ja: "世界中が僕らを止めようと手を伸ばしてくる", en: "The whole outside world is desperately reaching out to rein us in.", romaji: "Sekaijuu ga bokura o tomeyou to te o nobashite kuru" },
+          { ja: "だけどもう届かない　僕らは音速を超えた", en: "Too late—they can't touch us! We already broke past the speed of sound!", romaji: "Dakedo mou todokanai, bokura wa onsoku o koeta" },
+          { ja: "合図のスネアが鳴り響く――息を吸い込め！", en: "Snare rolls ringing the launch countdown—take a deep breath!", romaji: "Aizu no sunea ga narihibiku—iki o suikome!" }
+        ]
+      },
+      {
+        tag: { ja: "CHORUS // サビ", en: "CHORUS // THE TOEI CLIMAX ANTHEM" },
+        isChorus: true,
+        lines: [
+          { ja: "叫べ！夜を切り裂いて光を掴み取れ！", en: "\"Scream! Tear through the night and seize the light!\"", romaji: "Sakebe! Yoru o kirisaite hikari o tsukamitore!", highlight: true },
+          { ja: "BREAK THE LIMIT#2！　限界の向こう側へ！", en: "BREAK THE LIMIT#2! Fly beyond the outermost edge!", romaji: "BREAK THE LIMIT#2! Genkai no mukougawa e!", highlight: true },
+          { ja: "傷つくこと恐れずに　胸の火花を解き放て！", en: "Never fearing the wounds, unleash the sparks burning inside your heart!", romaji: "Kizutsuku koto osorezu ni, mune no hibana o tokihanate!", highlight: true },
+          { ja: "この声が枯れ果てるまで　歌い続ける僕らのアンセム！", en: "Until this voice completely gives out, our anthem roars into eternity!", romaji: "Kono koe ga karehateru made, utaitsudzukeru bokura no ansemu!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "VERSE 2 // Aメロ", en: "VERSE 2 // REALITY BEYOND STORYBOARDS" },
+        isChorus: false,
+        lines: [
+          { ja: "擦り切れた指先から　溢れ出すディストーション", en: "Distortion pouring like molten steel from blistered fingertips.", romaji: "Surikireta yubisaki kara, afuredasu disutooshon" },
+          { ja: "アニメのクライマックスなんかより　今ここが本番だろ？", en: "Who needs an anime storyboard when reality right here is ten times more intense?", romaji: "Anime no kuraimakkusu nanka yori, ima koko ga honban daro?" },
+          { ja: "冷めた大人の言い訳なんて　轟音で掻き消して", en: "Drown out every cynical excuse of adults with a wall of 100-watt sound!", romaji: "Sameta otona no iiwake nante, gouon de kakikeshite" },
+          { ja: "4つの鼓動を一つにして　ステージを揺るがせろ！", en: "Lock our four heartbeats into one and shake the foundations of the stage!", romaji: "Yottsu no kodou o hitotsu ni shite, suteeji o yurugasero!" }
+        ]
+      },
+      {
+        tag: { ja: "PRE-CHORUS // Bメロ", en: "PRE-CHORUS // HARMONIZED CHILLS" },
+        isChorus: false,
+        lines: [
+          { ja: "息が詰まるほどの圧倒的な緊張感", en: "Tension thick enough to choke on.", romaji: "Iki ga tsumaru hodo no attouteki na kinchoukan" },
+          { ja: "ツインギターがハモる瞬間　全身に鳥肌が走る", en: "The millisecond twin guitars harmonize, goosebumps electrify our skin!", romaji: "Tsuin gitaa ga hamoru shunkan, zenshin ni torihada ga hashiru" },
+          { ja: "演出抜きの剥き出しのリアルを見せてやる", en: "We're going to show you raw reality with zero special effects!", romaji: "Enshutsu nuki no mukidashi no riaru o misete yaru" },
+          { ja: "Ready... Go to the CLIMAX!!", en: "Ready... Go to the CLIMAX!!", romaji: "Ready... Go to the CLIMAX!!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "CHORUS // サビ", en: "CHORUS // INVINCIBLE MELODY" },
+        isChorus: true,
+        lines: [
+          { ja: "叫べ！夜を切り裂いて光を掴み取れ！", en: "\"Scream! Tear through the night and seize the light!\"", romaji: "Sakebe! Yoru o kirisaite hikari o tsukamitore!", highlight: true },
+          { ja: "奇跡なんかに頼るな　自分の手で奪い取れ！", en: "Don't wait for convenient miracles—rip tomorrow into your own hands!", romaji: "Kiseki nanka ni tayoru na, jibun no te de ubaitore!", highlight: true },
+          { ja: "倒れそうになっても　僕らは絶対に膝をつかない！", en: "Even when our knees buckle, we will NEVER hit the floor!", romaji: "Taoresou ni nattemo, bokura wa zettai ni hiza o tsukanai!", highlight: true },
+          { ja: "涙の数だけ強くなった　無敵のメロディを響かせろ！", en: "We grew stronger with every tear we cried—let this invincible melody roar!", romaji: "Namida no kazu dake tsuyoku natta, muteki no merodi o hibikasero!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "BRIDGE // 劇伴級クライマックス・ブレイクダウン", en: "BRIDGE // FINALE BATTLE SOLO" },
+        isBridge: true,
+        lines: [
+          { ja: "（東映アニメ最終話クライマックス戦闘シーン用 激闘ギターソロ）", en: "(Toei Animation Season Finale Climax Duel // Emotional Guitar Solo)", romaji: "[Toei Anime Saishuuwa Climax Sentou Scene-you Gekitou Guitar Solo]" },
+          { ja: "聞こえるか？僕らの心臓の咆哮が。", en: "Can you hear it? The ferocious roar of our beating hearts!", romaji: "Kikoeru ka? Bokura no shinzou no houkou ga." },
+          { ja: "100回の失敗だって、この1秒のためにあったんだ！", en: "Even a hundred bitter failures were just the price of admission for this one second!", romaji: "Hyak-kai no shippai datte, kono ichibyou no tame ni attanda!" },
+          { ja: "全ての感情をサビに叩き込め！いくぞ――ラスサビ！！", en: "Slam every ounce of human emotion into this chorus! HERE WE GO—CLIMAX!!", romaji: "Subete no kanjou o sabi ni tatakikome! Iku zo—rasusabi!!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "CLIMAX CHORUS // 怒涛の大サビ", en: "CLIMAX CHORUS // UNENDING DREAM" },
+        isChorus: true,
+        lines: [
+          { ja: "叫べ！宇宙の果てまで届くように！", en: "SCREAM! Loud enough to reach the edge of the cosmos!", romaji: "Sakebe! Uchuu no hate made todoku you ni!", highlight: true },
+          { ja: "BREAK THE LIMIT#2！　僕らが生きている証だ！", en: "BREAK THE LIMIT#2! Our undeniable proof of being alive!", romaji: "BREAK THE LIMIT#2! Bokura ga ikite iru akashi da!", highlight: true },
+          { ja: "朝焼けが渋谷の空を茜色に染めていく", en: "Crimson sunrise dyeing the Shibuya skyline in blinding dawn!", romaji: "Asayake ga Shibuya no sora o akaneiro ni somete iku" },
+          { ja: "終わらない夢の続きを　この歌と共に駆け抜けろ！", en: "Sprint through the unending dream with this anthem leading the charge!", romaji: "Owaranai yume no tsudzuki o, kono uta to tomo ni kakenukero!", highlight: true }
+        ]
+      },
+      {
+        tag: { ja: "OUTRO // アウトロ", en: "OUTRO // FOREVER CLIMAX" },
+        isChorus: false,
+        lines: [
+          { ja: "Scream! Tear through the night and seize the light!", en: "Scream! Tear through the night and seize the light!", romaji: "Scream! Tear through the night and seize the light!", highlight: true },
+          { ja: "Break the limit, higher and higher!", en: "Break the limit, higher and higher!", romaji: "Break the limit, higher and higher!" },
+          { ja: "✧XE・PON♡✧ will never die ♡", en: "✧XE・PON♡✧ will never die ♡", romaji: "✧XE・PON♡✧ will never die ♡", highlight: true }
+        ]
+      }
+    ]
   }
 ];
 
@@ -708,6 +1211,16 @@ function updatePlayUI() {
   if (playerMeta) {
     playerMeta.textContent = isPlaying ? dict.dock_meta_playing : dict.dock_meta_default;
   }
+
+  // Synchronize modal play button if open
+  const modalPlayBtn = document.getElementById('modal-play-btn');
+  if (modalPlayBtn) {
+    const isThisModalTrackPlaying = (currentModalTrackIdx === currentTrackIdx && isPlaying);
+    modalPlayBtn.innerHTML = `
+      <span class="btn-icon">${isThisModalTrackPlaying ? '⏸' : '▶'}</span>
+      <span>${isThisModalTrackPlaying ? (dict.modal_btn_pause || 'PAUSE') : (dict.modal_btn_play || 'PLAY THIS TRACK')}</span>
+    `;
+  }
 }
 
 function updatePlayerInfo() {
@@ -920,6 +1433,7 @@ function renderPlaylist() {
       <span class="track-duration">${track.duration}</span>
       <div class="track-action-btns">
         <button class="btn-play-inline${isThisPlaying ? ' is-playing' : ''}">${playBtnLabel}</button>
+        <button class="btn-lyrics-inline" data-track-idx="${i}" title="${dict.tip_lyrics || 'View Full Lyrics'}">📜 ${dict.btn_lyrics_short || 'LYRICS'}</button>
         <a href="${track.phaseUrl}" target="_blank" rel="noopener noreferrer" class="btn-phase-inline">${dict.dock_btn_phase}</a>
       </div>
     `;
@@ -937,9 +1451,18 @@ function renderPlaylist() {
       });
     }
 
+    // Inline lyrics button
+    const inlineLyricsBtn = row.querySelector('.btn-lyrics-inline');
+    if (inlineLyricsBtn) {
+      inlineLyricsBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openLyricsModal(i);
+      });
+    }
+
     // Row click selects and toggles
     row.addEventListener('click', (e) => {
-      if (e.target.closest('.btn-phase-inline')) return;
+      if (e.target.closest('.btn-phase-inline') || e.target.closest('.btn-lyrics-inline')) return;
       if (i === currentTrackIdx && isPlaying) {
         pauseAudio();
       } else {
@@ -998,7 +1521,7 @@ function updatePlaylistHighlight() {
 function initLyricsModal() {
   const openBtn = document.getElementById('open-lyrics-btn');
   if (openBtn) {
-    openBtn.addEventListener('click', () => openLyricsModal(currentTrackIdx));
+    openBtn.addEventListener('click', () => openLyricsModal(currentShowcaseIdx !== undefined ? currentShowcaseIdx : currentTrackIdx));
   }
 
   const closeBtn = document.getElementById('modal-close-btn');
@@ -1006,11 +1529,40 @@ function initLyricsModal() {
   if (closeBtn) closeBtn.addEventListener('click', closeLyricsModal);
   if (closeBtn2) closeBtn2.addEventListener('click', closeLyricsModal);
 
+  // Top navigation buttons
+  const prevTrackBtn = document.getElementById('modal-prev-track-btn');
+  const nextTrackBtn = document.getElementById('modal-next-track-btn');
+  if (prevTrackBtn) {
+    prevTrackBtn.addEventListener('click', () => {
+      const prevIdx = (currentModalTrackIdx + XE_PON_TRACKS.length - 1) % XE_PON_TRACKS.length;
+      renderModalLyrics(prevIdx);
+    });
+  }
+  if (nextTrackBtn) {
+    nextTrackBtn.addEventListener('click', () => {
+      const nextIdx = (currentModalTrackIdx + 1) % XE_PON_TRACKS.length;
+      renderModalLyrics(nextIdx);
+    });
+  }
+
+  // Modal play button
   const modalPlayBtn = document.getElementById('modal-play-btn');
   if (modalPlayBtn) {
     modalPlayBtn.addEventListener('click', () => {
-      switchTrack(currentModalTrackIdx, true);
-      closeLyricsModal();
+      if (currentTrackIdx === currentModalTrackIdx && isPlaying) {
+        pauseAudio();
+      } else {
+        switchTrack(currentModalTrackIdx, true);
+      }
+      renderModalLyrics(currentModalTrackIdx);
+    });
+  }
+
+  // Floating dock lyrics button
+  const playerLyricsBtn = document.getElementById('player-lyrics-btn');
+  if (playerLyricsBtn) {
+    playerLyricsBtn.addEventListener('click', () => {
+      openLyricsModal(currentTrackIdx);
     });
   }
 
@@ -1021,6 +1573,22 @@ function initLyricsModal() {
       if (e.target === overlay) closeLyricsModal();
     });
   }
+
+  // Keyboard navigation when lyrics modal is open
+  document.addEventListener('keydown', (e) => {
+    const modal = document.getElementById('lyrics-modal');
+    if (modal && modal.classList.contains('is-open')) {
+      if (e.key === 'Escape') {
+        closeLyricsModal();
+      } else if (e.key === 'ArrowLeft') {
+        const prevIdx = (currentModalTrackIdx + XE_PON_TRACKS.length - 1) % XE_PON_TRACKS.length;
+        renderModalLyrics(prevIdx);
+      } else if (e.key === 'ArrowRight') {
+        const nextIdx = (currentModalTrackIdx + 1) % XE_PON_TRACKS.length;
+        renderModalLyrics(nextIdx);
+      }
+    }
+  });
 }
 
 function openLyricsModal(idx) {
@@ -1036,24 +1604,204 @@ function closeLyricsModal() {
 }
 
 function renderModalLyrics(idx) {
+  currentModalTrackIdx = idx;
   const body = document.getElementById('modal-lyrics-body');
   if (!body) return;
   const data = XE_PON_SHOWCASE[idx];
-  if (!data) return;
+  const lyricsData = XE_PON_LYRICS[idx];
+  const track = XE_PON_TRACKS[idx];
+  if (!data || !lyricsData) return;
+  const dict = I18N[currentLang] || I18N.en;
+
+  // Header counter
+  const counterEl = document.getElementById('modal-track-counter');
+  if (counterEl) counterEl.textContent = `${String(idx + 1).padStart(2, '0')} / 05`;
+
+  // Footer play button
+  const modalPlayBtn = document.getElementById('modal-play-btn');
+  if (modalPlayBtn) {
+    const isThisTrackPlaying = (idx === currentTrackIdx && isPlaying);
+    modalPlayBtn.innerHTML = `
+      <span class="btn-icon">${isThisTrackPlaying ? '⏸' : '▶'}</span>
+      <span>${isThisTrackPlaying ? (dict.modal_btn_pause || 'PAUSE') : (dict.modal_btn_play || 'PLAY THIS TRACK')}</span>
+    `;
+  }
+
+  // Footer phase link
+  const modalPhaseLink = document.getElementById('modal-phase-link');
+  if (modalPhaseLink && track) {
+    modalPhaseLink.href = track.phaseUrl;
+  }
+
+  // Track pills HTML
+  const pillsHtml = XE_PON_TRACKS.map((t, i) => `
+    <button class="modal-track-pill${i === idx ? ' is-active' : ''}" data-pill-idx="${i}">
+      ${String(i + 1).padStart(2, '0')} ${t.title}
+    </button>
+  `).join('');
+
+  // Stanzas HTML according to currentLyricsViewMode ('ja', 'en', 'both')
+  let stanzasHtml = '';
+
+  if (currentLyricsViewMode === 'both') {
+    // Side by Side View
+    stanzasHtml = `
+      <div class="lyrics-side-by-side">
+        <div class="lyrics-col-ja">
+          <div class="lyrics-col-header">🇯🇵 日本語 (ORIGINAL LYRICS)</div>
+          <div class="lyrics-stanzas-wrap">
+            ${lyricsData.stanzas.map(s => `
+              <div class="lyric-stanza${s.isChorus ? ' is-chorus' : ''}${s.isBridge ? ' is-bridge' : ''}">
+                <span class="lyric-section-tag">${s.tag.ja}</span>
+                <div class="lyric-stanza-lines">
+                  ${s.lines.map(l => `
+                    <div class="lyric-line-ja${l.highlight ? ' lyric-line-highlight' : ''}">${l.ja}</div>
+                  `).join('')}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        <div class="lyrics-col-en">
+          <div class="lyrics-col-header">🌐 ENGLISH & ROMAJI (TRANSLATION)</div>
+          <div class="lyrics-stanzas-wrap">
+            ${lyricsData.stanzas.map(s => `
+              <div class="lyric-stanza${s.isChorus ? ' is-chorus' : ''}${s.isBridge ? ' is-bridge' : ''}">
+                <span class="lyric-section-tag">${s.tag.en}</span>
+                <div class="lyric-stanza-lines">
+                  ${s.lines.map(l => `
+                    <div class="lyric-pair-row">
+                      <div class="lyric-line-en${l.highlight ? ' lyric-line-highlight' : ''}">${l.en}</div>
+                      <div class="lyric-line-en" style="font-size:0.75rem;opacity:0.75;">${l.romaji}</div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  } else if (currentLyricsViewMode === 'en') {
+    // English & Romaji
+    stanzasHtml = `
+      <div class="lyrics-stanzas-wrap">
+        ${lyricsData.stanzas.map(s => `
+          <div class="lyric-stanza${s.isChorus ? ' is-chorus' : ''}${s.isBridge ? ' is-bridge' : ''}">
+            <span class="lyric-section-tag">${s.tag.en}</span>
+            <div class="lyric-stanza-lines">
+              ${s.lines.map(l => `
+                <div class="lyric-pair-row">
+                  <div class="lyric-line-en${l.highlight ? ' lyric-line-highlight' : ''}">${l.en}</div>
+                  <div class="lyric-line-en" style="font-size:0.78rem;opacity:0.8;">Romaji: ${l.romaji}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  } else {
+    // Japanese Original (with English subtitle lines)
+    stanzasHtml = `
+      <div class="lyrics-stanzas-wrap">
+        ${lyricsData.stanzas.map(s => `
+          <div class="lyric-stanza${s.isChorus ? ' is-chorus' : ''}${s.isBridge ? ' is-bridge' : ''}">
+            <span class="lyric-section-tag">${s.tag.ja}</span>
+            <div class="lyric-stanza-lines">
+              ${s.lines.map(l => `
+                <div class="lyric-pair-row">
+                  <div class="lyric-line-ja${l.highlight ? ' lyric-line-highlight' : ''}">${l.ja}</div>
+                  <div class="lyric-line-en">${l.en}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
 
   body.innerHTML = `
-    <h3 class="modal-track-title">${data.title}</h3>
-    <p class="modal-track-specs">${data.subtitle[currentLang] || data.subtitle.en}</p>
-    <div class="showcase-genres" style="margin-bottom:20px;">
-      ${data.genres.map(g => `<span class="genre-tag ${g.cls}">${g.text}</span>`).join('')}
+    <div class="modal-track-banner">
+      <span class="modal-track-num-badge">TRACK ${String(idx + 1).padStart(2, '0')} // OFFICIAL FULL LYRICS</span>
+      <h3 class="modal-track-title">${data.title}</h3>
+      <div class="modal-track-specs">
+        <span>${data.subtitle[currentLang] || data.subtitle.en}</span>
+        <span class="modal-track-specs-sep">•</span>
+        <span>${lyricsData.tempo}</span>
+        <span class="modal-track-specs-sep">•</span>
+        <span>Duration: ${track.duration}</span>
+      </div>
+      <div class="showcase-genres" style="margin-bottom:0;">
+        ${data.genres.map(g => `<span class="genre-tag ${g.cls}">${g.text}</span>`).join('')}
+      </div>
     </div>
-    <div class="showcase-editorial-header">${data.editorialHeader[currentLang] || data.editorialHeader.en}</div>
-    <p class="showcase-editorial-body">${data.editorialBody[currentLang] || data.editorialBody.en}</p>
-    <div class="showcase-lyric-quote" style="margin-top:20px;">
-      <div class="showcase-lyric-tag">${data.lyricTag[currentLang] || data.lyricTag.en}</div>
-      <p class="showcase-lyric-text">${data.lyricQuote[currentLang] || data.lyricQuote.en}</p>
+
+    <!-- Song Selector Pills -->
+    <div class="modal-track-pills">
+      ${pillsHtml}
+    </div>
+
+    <!-- Lyrics View Tabs -->
+    <div class="lyrics-view-tabs">
+      <button class="lyrics-tab-btn${currentLyricsViewMode === 'ja' ? ' is-active' : ''}" data-view-mode="ja">
+        ${dict.tab_original_ja || '🇯🇵 日本語 (Original)'}
+      </button>
+      <button class="lyrics-tab-btn${currentLyricsViewMode === 'en' ? ' is-active' : ''}" data-view-mode="en">
+        ${dict.tab_romaji_en || '🌐 Romaji & English'}
+      </button>
+      <button class="lyrics-tab-btn${currentLyricsViewMode === 'both' ? ' is-active' : ''}" data-view-mode="both">
+        ${dict.tab_side_by_side || '⚡ Side-by-Side'}
+      </button>
+    </div>
+
+    <!-- Full Lyrics Stanzas -->
+    ${stanzasHtml}
+
+    <!-- Collapsible Editorial & Production Notes -->
+    <div class="modal-editorial-accordion" id="modal-editorial-accordion">
+      <button class="editorial-accordion-header" id="editorial-accordion-header">
+        <span>${dict.notes_toggle_open || '▼ VIEW TRACK NOTES & PRODUCTION DETAILS'}</span>
+        <span class="editorial-accordion-arrow">▼</span>
+      </button>
+      <div class="editorial-accordion-body">
+        <div style="font-weight:700;color:var(--pink);margin-bottom:6px;">${data.editorialHeader[currentLang] || data.editorialHeader.en}</div>
+        <p style="margin-bottom:12px;">${data.editorialBody[currentLang] || data.editorialBody.en}</p>
+        <div style="font-size:0.75rem;color:var(--text-dark-muted);margin-bottom:6px;">📍 <strong>Location:</strong> ${data.location[currentLang] || data.location.en}</div>
+        <div class="showcase-lyric-quote" style="margin-top:10px;">
+          <div class="showcase-lyric-tag">${data.lyricTag[currentLang] || data.lyricTag.en}</div>
+          <p class="showcase-lyric-text" style="font-size:0.85rem;">${data.lyricQuote[currentLang] || data.lyricQuote.en}</p>
+        </div>
+      </div>
     </div>
   `;
+
+  // Bind pill clicks
+  body.querySelectorAll('.modal-track-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const pIdx = parseInt(pill.getAttribute('data-pill-idx'), 10);
+      renderModalLyrics(pIdx);
+    });
+  });
+
+  // Bind tab clicks
+  body.querySelectorAll('.lyrics-tab-btn').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const mode = tab.getAttribute('data-view-mode');
+      currentLyricsViewMode = mode;
+      renderModalLyrics(currentModalTrackIdx);
+    });
+  });
+
+  // Bind editorial accordion
+  const accHeader = body.querySelector('#editorial-accordion-header');
+  const accCard = body.querySelector('#modal-editorial-accordion');
+  if (accHeader && accCard) {
+    accHeader.addEventListener('click', () => {
+      accCard.classList.toggle('is-open');
+    });
+  }
 }
 
 /**

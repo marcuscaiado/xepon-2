@@ -28,6 +28,11 @@ This repository (**`xepon-2`**) is a complete redesign crafted specifically for 
 - **📸 Photocard & Polaroid Hover Effects + Miniature Viewer:**
   - Click any photo (Band Hero, Track Visualizers, Toei Banner, or Member Polaroids) to open in a full-scale lightbox.
   - **Miniature Dock Mode:** Minimize the lightbox into a draggable floating miniature widget docked in the bottom-right corner to browse the site without losing your visual context!
+- **📜 Complete Official Full Lyrics Engine:**
+  - Full-length, authentic lyrics (all verses, pre-choruses, choruses, bridges, and outros) for all 5 tracks.
+  - Interactive multi-mode viewing: Original Japanese (`🇯🇵 日本語`), English Translation with Romaji pronunciation cues (`🌐 Romaji & English`), and desktop Side-by-Side dual column view (`⚡ Side-by-Side`).
+  - Stanza cards with highlighted climax choruses, in-modal track navigation pills, synchronized audio play/pause, and collapsible production notes.
+  - Direct lyrics access buttons from the Track Showcase (`VIEW FULL LYRICS 📜`), every Playlist row (`📜 LYRICS`), and the sticky audio dock (`📜 LYRICS`).
 - **🎧 Phaseia Streaming Ecosystem:** Seamless integration with Phaseia streaming services and official artwork.
 - **⚡ Synchronized Track Selection:** Switch tracks seamlessly from the Hero banner, the interactive Track Showcase, or the 5-track Playlist table.
 

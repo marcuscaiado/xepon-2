@@ -1227,7 +1227,7 @@ img {
 
 .track-table-header {
   display: grid;
-  grid-template-columns: 50px 1fr 180px 80px 160px;
+  grid-template-columns: 50px 1fr 160px 65px 235px;
   padding: 14px 28px;
   font-size: 0.68rem;
   font-weight: 800;
@@ -1239,7 +1239,7 @@ img {
 
 .track-row {
   display: grid;
-  grid-template-columns: 50px 1fr 180px 80px 160px;
+  grid-template-columns: 50px 1fr 160px 65px 235px;
   padding: 16px 28px;
   align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
@@ -1367,6 +1367,30 @@ img {
   background: var(--blue);
   color: var(--black);
   box-shadow: 0 0 14px var(--blue-glow);
+}
+
+.btn-lyrics-inline {
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: rgba(255, 20, 147, 0.08);
+  color: var(--pink);
+  border: 1px solid rgba(255, 20, 147, 0.35);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-lyrics-inline:hover {
+  background: var(--pink);
+  color: var(--white);
+  border-color: var(--pink);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--pink-glow);
 }
 
 .btn-phase-inline {
@@ -1630,28 +1654,85 @@ img {
 .modal-card {
   background: var(--white);
   border-radius: var(--radius-lg);
-  max-width: 680px;
-  width: 100%;
-  max-height: 85vh;
+  max-width: 820px;
+  width: 96%;
+  max-height: 90vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45), 0 0 40px rgba(255, 20, 147, 0.15);
+  border: 1.5px solid rgba(255, 20, 147, 0.25);
+  animation: lyricsModalIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes lyricsModalIn {
+  from { opacity: 0; transform: scale(0.96) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 24px;
+  padding: 16px 24px;
+  background: #FDFDFE;
   border-bottom: 1px solid var(--border-light);
+  gap: 12px;
+}
+
+.modal-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .modal-chip {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   color: var(--pink);
+  text-transform: uppercase;
+}
+
+.modal-song-nav-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #F4F4F6;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-light);
+}
+
+.modal-nav-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--border-light);
+  background: var(--white);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.modal-nav-btn:hover {
+  background: var(--pink);
+  color: var(--white);
+  border-color: var(--pink);
+}
+
+.modal-track-indicator {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--text-dark-muted);
+  letter-spacing: 0.06em;
+  padding: 0 4px;
 }
 
 .modal-close {
@@ -1676,38 +1757,302 @@ img {
 }
 
 .modal-body {
-  padding: 24px;
+  padding: 24px 28px;
   overflow-y: auto;
   flex: 1;
   color: var(--text-dark);
 }
 
-.modal-track-title {
+/* Modal Track Title Banner */
+.modal-track-banner {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.modal-track-num-badge {
+  display: inline-block;
   font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--text-dark);
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--pink);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   margin-bottom: 4px;
 }
 
-.modal-track-specs {
-  font-size: 0.75rem;
-  color: var(--text-dark-dim);
-  margin-bottom: 20px;
+.modal-track-title {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 6px;
 }
 
-.modal-lyrics-text {
-  font-size: 0.9rem;
-  line-height: 2;
+.modal-track-specs {
+  font-size: 0.76rem;
+  color: var(--text-dark-dim);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.modal-track-specs-sep {
+  color: rgba(0, 0, 0, 0.2);
+}
+
+/* Track Pills Switcher inside Modal */
+.modal-track-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.modal-track-pill {
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-light);
+  background: var(--white);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-dark-dim);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-track-pill:hover {
+  border-color: var(--pink);
+  color: var(--pink);
+}
+
+.modal-track-pill.is-active {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: var(--white);
+  box-shadow: 0 2px 8px var(--pink-glow);
+}
+
+/* Lyrics View Switcher Tabs */
+.lyrics-view-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #F2F3F6;
+  padding: 4px;
+  border-radius: var(--radius-md);
+  margin-bottom: 22px;
+  width: fit-content;
+}
+
+.lyrics-tab-btn {
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  font-size: 0.72rem;
+  font-weight: 700;
   color: var(--text-dark-muted);
-  white-space: pre-line;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lyrics-tab-btn:hover {
+  color: var(--text-dark);
+}
+
+.lyrics-tab-btn.is-active {
+  background: var(--white);
+  color: var(--pink);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Lyrics Stanzas Container */
+.lyrics-stanzas-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.lyric-stanza {
+  background: #FAFAFC;
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  border-left: 3.5px solid #DCDCE2;
+  transition: all 0.2s ease;
+}
+
+.lyric-stanza:hover {
+  background: #F5F6F9;
+}
+
+.lyric-stanza.is-chorus {
+  background: rgba(255, 20, 147, 0.035);
+  border-left: 3.5px solid var(--pink);
+  box-shadow: inset 0 0 20px rgba(255, 20, 147, 0.02);
+}
+
+.lyric-stanza.is-bridge {
+  background: rgba(137, 207, 240, 0.045);
+  border-left: 3.5px solid var(--blue);
+}
+
+.lyric-section-tag {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-dark-dim);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  padding: 2px 8px;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: var(--radius-full);
+}
+
+.lyric-stanza.is-chorus .lyric-section-tag {
+  color: var(--pink);
+  background: var(--pink-dim);
+}
+
+.lyric-stanza.is-bridge .lyric-section-tag {
+  color: #0077b6;
+  background: var(--blue-dim);
+}
+
+.lyric-stanza-lines {
+  font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.85;
+  color: var(--text-dark);
+}
+
+.lyric-pair-row {
+  margin-bottom: 10px;
+}
+
+.lyric-pair-row:last-child {
+  margin-bottom: 0;
+}
+
+.lyric-line-ja {
+  font-size: 0.94rem;
+  font-weight: 500;
+  color: #111;
+  line-height: 1.7;
+}
+
+.lyric-line-en {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--text-dark-dim);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+.lyric-line-highlight {
+  color: var(--pink);
+  font-weight: 700;
+}
+
+/* Side-by-Side View */
+.lyrics-side-by-side {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 680px) {
+  .lyrics-side-by-side {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lyrics-col-header {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-dark-muted);
+  text-transform: uppercase;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 12px;
+}
+
+/* Editorial Accordion */
+.modal-editorial-accordion {
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  background: #FBFBFC;
+  overflow: hidden;
+  margin-top: 14px;
+}
+
+.editorial-accordion-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-dark-muted);
+  transition: all 0.2s ease;
+}
+
+.editorial-accordion-header:hover {
+  background: #F2F2F5;
+  color: var(--text-dark);
+}
+
+.editorial-accordion-body {
+  padding: 0 18px 16px 18px;
+  display: none;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: var(--text-dark-dim);
+}
+
+.modal-editorial-accordion.is-open .editorial-accordion-body {
+  display: block;
+}
+
+.editorial-accordion-arrow {
+  font-size: 0.7rem;
+  transition: transform 0.2s ease;
+}
+
+.modal-editorial-accordion.is-open .editorial-accordion-arrow {
+  transform: rotate(180deg);
 }
 
 .modal-footer {
   display: flex;
-  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
   padding: 16px 24px;
+  background: #FDFDFE;
   border-top: 1px solid var(--border-light);
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.modal-footer-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 /* ═══════════════════════════════════════
@@ -1836,6 +2181,31 @@ img {
 
 .time-sep {
   opacity: 0.4;
+}
+
+.player-lyrics-btn {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--pink);
+  letter-spacing: 0.06em;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 20, 147, 0.4);
+  background: rgba(255, 20, 147, 0.12);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.player-lyrics-btn:hover {
+  background: var(--pink);
+  color: var(--white);
+  border-color: var(--pink);
+  box-shadow: 0 0 14px var(--pink-glow);
+  transform: translateY(-1px);
 }
 
 .player-phase-link {

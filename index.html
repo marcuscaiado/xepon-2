@@ -128,7 +128,7 @@
             </a>
             <button id="open-lyrics-btn" class="btn btn-ghost-dark">
               <span class="btn-icon">📜</span>
-              <span class="btn-label" data-i18n="btn_lyrics_notes">LYRICS & NOTES</span>
+              <span class="btn-label" data-i18n="btn_lyrics_notes">FULL LYRICS & NOTES</span>
             </button>
           </div>
 
@@ -276,6 +276,7 @@
                 <span class="track-duration">3:34</span>
                 <div class="track-action-btns">
                   <button class="btn-play-inline">▶ PLAY</button>
+                  <button class="btn-lyrics-inline" data-track-idx="0" title="View Full Lyrics">📜 LYRICS</button>
                   <a href="https://app.phase.app.br/?track=8c124227-9d14-43c1-aaaa-847472eb1d95" target="_blank" rel="noopener noreferrer" class="btn-phase-inline">PHASEIA ↗</a>
                 </div>
               </div>
@@ -289,6 +290,7 @@
                 <span class="track-duration">3:30</span>
                 <div class="track-action-btns">
                   <button class="btn-play-inline">▶ PLAY</button>
+                  <button class="btn-lyrics-inline" data-track-idx="1" title="View Full Lyrics">📜 LYRICS</button>
                   <a href="https://app.phase.app.br/?track=6cabef0e-061d-4697-b5dd-6152ea718683" target="_blank" rel="noopener noreferrer" class="btn-phase-inline">PHASEIA ↗</a>
                 </div>
               </div>
@@ -302,6 +304,7 @@
                 <span class="track-duration">3:26</span>
                 <div class="track-action-btns">
                   <button class="btn-play-inline">▶ PLAY</button>
+                  <button class="btn-lyrics-inline" data-track-idx="2" title="View Full Lyrics">📜 LYRICS</button>
                   <a href="https://app.phase.app.br/?track=db4daa95-648c-4518-b21c-8d8affa7437b" target="_blank" rel="noopener noreferrer" class="btn-phase-inline">PHASEIA ↗</a>
                 </div>
               </div>
@@ -315,6 +318,7 @@
                 <span class="track-duration">3:25</span>
                 <div class="track-action-btns">
                   <button class="btn-play-inline">▶ PLAY</button>
+                  <button class="btn-lyrics-inline" data-track-idx="3" title="View Full Lyrics">📜 LYRICS</button>
                   <a href="https://app.phase.app.br/?track=bc0b1e00-c033-4072-922f-a11d77c036d3" target="_blank" rel="noopener noreferrer" class="btn-phase-inline">PHASEIA ↗</a>
                 </div>
               </div>
@@ -329,6 +333,7 @@
                 <span class="track-duration">3:45</span>
                 <div class="track-action-btns">
                   <button class="btn-play-inline">▶ PLAY</button>
+                  <button class="btn-lyrics-inline" data-track-idx="4" title="View Full Lyrics">📜 LYRICS</button>
                   <a href="https://app.phase.app.br/?track=a49e18b4-39cf-44f6-8f29-9f5dbebeed17" target="_blank" rel="noopener noreferrer" class="btn-phase-inline">PHASEIA ↗</a>
                 </div>
               </div>
@@ -486,9 +491,16 @@
        LYRICS MODAL
        ═══════════════════════════════════════ -->
   <div class="modal-overlay" id="lyrics-modal">
-    <div class="modal-card">
+    <div class="modal-card modal-lyrics-card">
       <div class="modal-header">
-        <span class="modal-chip" data-i18n="modal_chip">LYRICS & NOTES // ✧XE・PON♡✧</span>
+        <div class="modal-header-left">
+          <span class="modal-chip" data-i18n="modal_chip">OFFICIAL FULL LYRICS // ✧XE・PON♡✧</span>
+        </div>
+        <div class="modal-song-nav-top">
+          <button class="modal-nav-btn" id="modal-prev-track-btn" title="Previous song" aria-label="Previous song">⟨</button>
+          <span class="modal-track-indicator" id="modal-track-counter">05 / 05</span>
+          <button class="modal-nav-btn" id="modal-next-track-btn" title="Next song" aria-label="Next song">⟩</button>
+        </div>
         <button class="modal-close" id="modal-close-btn" aria-label="Close">✕</button>
       </div>
       <div class="modal-body" id="modal-lyrics-body">
@@ -499,6 +511,9 @@
           <span class="btn-icon">▶</span>
           <span data-i18n="modal_btn_play">PLAY THIS TRACK</span>
         </button>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark btn-sm" id="modal-phase-link">
+          <span>PHASEIA ↗</span>
+        </a>
         <button class="btn btn-ghost-dark btn-sm" id="modal-close-btn-2">
           <span data-i18n="modal_btn_close">CLOSE</span>
         </button>
@@ -592,6 +607,7 @@
         <span class="time-sep">/</span>
         <span id="total-time">0:00</span>
       </div>
+      <button class="player-lyrics-btn" id="player-lyrics-btn" title="Open Full Lyrics">📜 LYRICS</button>
       <a class="player-phase-link" id="player-phase-link" href="#" target="_blank" rel="noopener noreferrer" data-i18n="dock_btn_phase">PHASEIA ↗</a>
     </div>
   </div>
